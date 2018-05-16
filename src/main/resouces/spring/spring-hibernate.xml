@@ -17,7 +17,7 @@
     </context:component-scan>
     <!-- hibernate配置 -->
     <context:property-placeholder
-            location="jdbc.properties" />
+            location="classpath:/jdbc.properties" />
     <!-- shiro配置 -->
     <bean id="shiroFilter"
           class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">

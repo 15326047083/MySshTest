@@ -33,6 +33,7 @@ public class CustomRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         authorizationInfo.setStringPermissions(permissions);
         authorizationInfo.setRoles(roles);
+
         return authorizationInfo;
     }
 
