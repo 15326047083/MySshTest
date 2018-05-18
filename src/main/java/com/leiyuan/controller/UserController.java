@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.leiyuan.entity.User;
-import com.leiyuan.dao.UserRepository;
 import com.leiyuan.service.UserService;
 
 @Controller
@@ -60,7 +59,6 @@ public class UserController {
      *
      * @return
      */
-    @RequiresRoles("user")
     @RequestMapping("/toNewUser")
     public String toNewUser() {
         return "new";
