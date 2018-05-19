@@ -1,9 +1,11 @@
 package com.leiyuan.util;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.leiyuan.entity.User;
+import com.leiyuan.service.UserPermissionsService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -25,12 +27,15 @@ public class CustomRealm extends AuthorizingRealm {
     @Autowired
     private UserRolesService userRolesService;
 
+    @Autowired
+    private UserPermissionsService userPermissionsService;
+
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
         // TODO Auto-generated method stub
         String userName = (String) arg0.getPrimaryPrincipal();
         Set<String> roles = getRolesByEmail(userName);
-        Set<String> permissions = getPermissionsByEmail(userName);
+        Set<String> permissions = getPermissionsByRoles(roles);
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         authorizationInfo.setStringPermissions(permissions);
         authorizationInfo.setRoles(roles);
@@ -38,15 +43,20 @@ public class CustomRealm extends AuthorizingRealm {
         return authorizationInfo;
     }
 
-    private Set<String> getPermissionsByEmail(String userName) {
-        // TODO Auto-generated method stub
-        return null;
+    private Set<String> getPermissionsByRoles(Set<String> roles) {
+        List<String> list = new ArrayList<String>();
+        for (String str : roles) {
+            List<String> userPermissionsList = userPermissionsService.getByRoles(str);
+            list.addAll(userPermissionsList);
+        }
+        Set<String> set = new HashSet<>(list);
+        return set;
     }
 
     @SuppressWarnings("unchecked")
     private Set<String> getRolesByEmail(String userName) {
         // TODO Auto-generated method stub
-        List<String> list =userRolesService.getRolesByEmail(userName);
+        List<String> list = userRolesService.getRolesByEmail(userName);
         Set<String> set = new HashSet<>(list);
         return set;
     }

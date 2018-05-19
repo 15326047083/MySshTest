@@ -22,11 +22,11 @@
     <bean id="shiroFilter"
           class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"></property>
-        <property name="loginUrl" value="WEB-INF/views/login.jsp"></property>
+        <property name="loginUrl" value="/user/toLogin"></property>
         <property name="unauthorizedUrl" value="403.html"></property>
         <property name="filterChainDefinitions">
             <value>
-                /WEB-INF/views/login.jsp=anon<!-- /user/toLogin=anon -->
+                /user/toNewUser=perms["user:new"]
                 /*=authc
             </value>
         </property>

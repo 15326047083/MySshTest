@@ -2,6 +2,7 @@ package com.leiyuan.controller;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,7 @@ public class UserController {
             // TODO: handle exception
             return e.getMessage();
         }
-        if (subject.hasRole("user1")) {
+        if (subject.hasRole("user")) {
             return "you have admin";
         }
         return "you don't have admin";
@@ -75,6 +76,7 @@ public class UserController {
         } else {
             return "2";
         }
+
     }
 
     /**
