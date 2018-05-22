@@ -68,7 +68,6 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/verifyEmail", method = RequestMethod.POST)
     public String verifyEmail(User user) {
-
         User u = new User();
         u = userService.getByEmail(user.getEmail());
         if (u != null) {
