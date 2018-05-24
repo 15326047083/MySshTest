@@ -8,8 +8,8 @@ import javax.persistence.*;
  * 需求表
  */
 @Entity
-@Table(name = "damand")
-public class Damand {
+@Table(name = "demand")
+public class Demand {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid")
@@ -42,11 +42,11 @@ public class Damand {
     @Column(name = "flag")
     private int flag;
 
-    public Damand() {
+    public Demand() {
 
     }
 
-    public Damand(String setUserId, String getUserId, String weixin, String qq, String info, String bounty, String startTime, String endTime, int flag) {
+    public Demand(String setUserId, String getUserId, String weixin, String qq, String info, String bounty, String startTime, String endTime, int flag) {
         this.setUserId = setUserId;
         this.getUserId = getUserId;
         this.weixin = weixin;
@@ -141,7 +141,7 @@ public class Damand {
 
     @Override
     public String toString() {
-        return "Damand{" +
+        return "Demand{" +
                 "id='" + id + '\'' +
                 ", setUserId='" + setUserId + '\'' +
                 ", getUserId='" + getUserId + '\'' +

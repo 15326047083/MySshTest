@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "discuss")
-public class Discess {
+public class Discuss {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid")
@@ -22,11 +22,11 @@ public class Discess {
     @Column(name = "date")
     private String date;
 
-    public Discess() {
+    public Discuss() {
 
     }
 
-    public Discess(String id, String setUserId, String getUserId, String info, int star, String date) {
+    public Discuss(String id, String setUserId, String getUserId, String info, int star, String date) {
         this.id = id;
         this.setUserId = setUserId;
         this.getUserId = getUserId;
@@ -86,7 +86,7 @@ public class Discess {
 
     @Override
     public String toString() {
-        return "Discess{" +
+        return "Discuss{" +
                 "id='" + id + '\'' +
                 ", setUserId='" + setUserId + '\'' +
                 ", getUserId='" + getUserId + '\'' +
