@@ -9,5 +9,5 @@ public interface UserRolesService {
 
     void saveOrUpdate(UserRoles roles);
 
-    List<String> getRolesByEmail(String email);
+    List<String> getRolesByNum(String email);
 }

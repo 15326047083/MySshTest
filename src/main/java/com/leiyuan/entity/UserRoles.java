@@ -4,6 +4,9 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
+/**
+ * 角色表
+ */
 @Entity
 @Table(name = "roles")
 public class UserRoles {
@@ -12,8 +15,10 @@ public class UserRoles {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid")
     private String id;
-    @Column(name = "email")
-    private String email;
+    //用户的学号
+    @Column(name = "studentNum")
+    private String studentNum;
+    //角色名
     @Column(name = "roles")
     private String roles;
 
@@ -21,16 +26,13 @@ public class UserRoles {
         // TODO Auto-generated constructor stub
     }
 
-    public UserRoles(String id, String email, String roles) {
-        //super();
-        this.id = id;
-        this.email = email;
-        this.roles = roles;
-    }
-
     @Override
     public String toString() {
-        return "UserRoles [id=" + id + ", email=" + email + ", roles=" + roles + "]";
+        return "UserRoles{" +
+                "id='" + id + '\'' +
+                ", studentNum='" + studentNum + '\'' +
+                ", roles='" + roles + '\'' +
+                '}';
     }
 
     public String getId() {
@@ -41,12 +43,12 @@ public class UserRoles {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getStudentNum() {
+        return studentNum;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setStudentNum(String studentNum) {
+        this.studentNum = studentNum;
     }
 
     public String getRoles() {
@@ -57,4 +59,9 @@ public class UserRoles {
         this.roles = roles;
     }
 
+    public UserRoles(String studentNum, String roles) {
+
+        this.studentNum = studentNum;
+        this.roles = roles;
+    }
 }

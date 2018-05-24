@@ -42,7 +42,7 @@ public class UserController {
     @ResponseBody
     public String login(User user) {
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getEmail(), user.getPassword());
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getNum(), user.getPassword());
         try {
 
             subject.login(token);
@@ -70,7 +70,7 @@ public class UserController {
     @RequestMapping(value = "/verifyEmail", method = RequestMethod.POST)
     public String verifyEmail(User user) {
         User u = new User();
-        u = userService.getByEmail(user.getEmail());
+        u = userService.getByNum(user.getNum());
         if (u != null) {
             return "1";
         } else {

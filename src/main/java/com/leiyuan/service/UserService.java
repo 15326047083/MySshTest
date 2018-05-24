@@ -22,6 +22,6 @@ public interface UserService {
 
     List<User> queryAll(String sql);
 
-    User getByEmail(String email);
+    User getByNum(String num);
 
 }

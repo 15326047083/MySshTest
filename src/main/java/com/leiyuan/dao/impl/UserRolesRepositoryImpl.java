@@ -24,9 +24,9 @@ public class UserRolesRepositoryImpl extends CommonRepositoryImpl<UserRoles> imp
     @SuppressWarnings("unchecked")
     @Override
     @Transactional
-    public List<String> getRolesByEamil(String email) {
+    public List<String> getRolesByNum(String num) {
         // TODO Auto-generated method stub
         return (List<String>) getCurrentSession()
-                .createQuery("select roles from UserRoles where email='" + email + "'").list();
+                .createQuery("select roles from UserRoles where studentNum='" + num + "'").list();
     }
 }

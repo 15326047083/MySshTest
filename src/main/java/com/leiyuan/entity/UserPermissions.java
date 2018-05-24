@@ -4,6 +4,9 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
+/**
+ * 权限表
+ */
 @Entity
 @Table(name = "permissions")
 public class UserPermissions {
@@ -11,8 +14,10 @@ public class UserPermissions {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid")
     private String id;
+    //角色名
     @Column(name = "roles")
     private String roles;
+    //拥有权限
     @Column(name = "permissions")
     private String permissions;
 

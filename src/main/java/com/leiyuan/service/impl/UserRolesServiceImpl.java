@@ -22,8 +22,8 @@ public class UserRolesServiceImpl implements UserRolesService {
     }
 
     @Override
-    public List<String> getRolesByEmail(String email) {
+    public List<String> getRolesByNum(String Num) {
         // TODO Auto-generated method stub
-        return userRoles.getRolesByEamil(email);
+        return userRoles.getRolesByNum(Num);
     }
 }

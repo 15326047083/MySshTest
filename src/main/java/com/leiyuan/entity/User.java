@@ -4,6 +4,9 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
+/**
+ * 用户表
+ */
 @Entity
 @Table(name = "user")
 public class User {
@@ -11,38 +14,35 @@ public class User {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid")
     private String id;
-    @Column(name = "email")
-    private String email;
-    @Column(name = "password")
-    private String password;
+    //学号
+    @Column(name = "num")
+    private String num;
+    //姓名
+    @Column(name = "name")
+    private String name;
+    //电话
+    @Column(name = "phone")
+    private String phone;
+    //性别
     @Column(name = "sex")
     private String sex;
-    @Column(name = "birthday")
-    private String birthday;
-    @Column(name = "flag")
-    private int flag;
+    //密码
+    @Column(name = "password")
+    private String password;
 
     public User() {
 
-    }
-
-    public User(String email, String password, String sex, String birthday, int flag) {
-        this.email = email;
-        this.password = password;
-        this.sex = sex;
-        this.birthday = birthday;
-        this.flag = flag;
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id='" + id + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
+                ", num=" + num +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
                 ", sex='" + sex + '\'' +
-                ", birthday='" + birthday + '\'' +
-                ", flag=" + flag +
+                ", password='" + password + '\'' +
                 '}';
     }
 
@@ -54,20 +54,28 @@ public class User {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getNum() {
+        return num;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setNum(String num) {
+        this.num = num;
     }
 
-    public String getPassword() {
-        return password;
+    public String getName() {
+        return name;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getSex() {
@@ -78,19 +86,20 @@ public class User {
         this.sex = sex;
     }
 
-    public String getBirthday() {
-        return birthday;
+    public String getPassword() {
+        return password;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public int getFlag() {
-        return flag;
-    }
+    public User(String num, String name, String phone, String sex, String password) {
 
-    public void setFlag(int flag) {
-        this.flag = flag;
+        this.num = num;
+        this.name = name;
+        this.phone = phone;
+        this.sex = sex;
+        this.password = password;
     }
 }

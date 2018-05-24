@@ -56,7 +56,7 @@ public class CustomRealm extends AuthorizingRealm {
     @SuppressWarnings("unchecked")
     private Set<String> getRolesByEmail(String userName) {
         // TODO Auto-generated method stub
-        List<String> list = userRolesService.getRolesByEmail(userName);
+        List<String> list = userRolesService.getRolesByNum(userName);
         Set<String> set = new HashSet<>(list);
         return set;
     }
@@ -76,6 +76,6 @@ public class CustomRealm extends AuthorizingRealm {
 
     private String getPasswordByUserName(String username) {
         // TODO Auto-generated method stub
-        return userService.getByEmail(username).getPassword();
+        return userService.getByNum(username).getPassword();
     }
 }
