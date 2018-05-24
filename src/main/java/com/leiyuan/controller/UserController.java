@@ -47,7 +47,6 @@ public class UserController {
 
             subject.login(token);
         } catch (Exception e) {
-            // TODO: handle exception
             return e.getMessage();
         }
         if (subject.hasRole("user")) {
@@ -59,7 +58,7 @@ public class UserController {
     /**
      * 跳转至注册页面
      *
-     * @return
+     * @return 用户是否注册过 1为未注册 2为已注册
      */
     @RequestMapping("/toNewUser")
     public String toNewUser() {
@@ -69,8 +68,7 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/verifyEmail", method = RequestMethod.POST)
     public String verifyEmail(User user) {
-        User u = new User();
-        u = userService.getByNum(user.getNum());
+        User u = userService.getByNum(user.getNum());
         if (u != null) {
             return "1";
         } else {
@@ -82,8 +80,8 @@ public class UserController {
     /**
      * 注册方法
      *
-     * @param user
-     * @return
+     * @param user 实体类信息
+     * @return 跳转页面
      */
     @RequestMapping(value = "/newUser", method = RequestMethod.POST)
     public String newUser(User user) {

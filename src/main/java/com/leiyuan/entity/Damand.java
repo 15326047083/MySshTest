@@ -15,8 +15,11 @@ public class Damand {
     @GenericGenerator(name = "uuid", strategy = "uuid")
     private String id;
     //发布需求的用户id
-    @Column(name = "userId")
-    private String userId;
+    @Column(name = "setUserId")
+    private String setUserId;
+    //接单服务商的用户id
+    @Column(name = "getUserId")
+    private String getUserId;
     //用户联系方式：微信
     @Column(name = "weixin")
     private String weixin;
@@ -43,8 +46,9 @@ public class Damand {
 
     }
 
-    public Damand(String userId, String weixin, String qq, String info, String bounty, String startTime, String endTime, int flag) {
-        this.userId = userId;
+    public Damand(String setUserId, String getUserId, String weixin, String qq, String info, String bounty, String startTime, String endTime, int flag) {
+        this.setUserId = setUserId;
+        this.getUserId = getUserId;
         this.weixin = weixin;
         this.qq = qq;
         this.info = info;
@@ -54,22 +58,8 @@ public class Damand {
         this.flag = flag;
     }
 
-    @Override
-    public String toString() {
-        return "Damand{" +
-                "id='" + id + '\'' +
-                ", userId='" + userId + '\'' +
-                ", weixin='" + weixin + '\'' +
-                ", qq='" + qq + '\'' +
-                ", info='" + info + '\'' +
-                ", bounty='" + bounty + '\'' +
-                ", startTime='" + startTime + '\'' +
-                ", endTime='" + endTime + '\'' +
-                ", flag=" + flag +
-                '}';
-    }
-
     public String getId() {
+
         return id;
     }
 
@@ -77,12 +67,20 @@ public class Damand {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getSetUserId() {
+        return setUserId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setSetUserId(String setUserId) {
+        this.setUserId = setUserId;
+    }
+
+    public String getGetUserId() {
+        return getUserId;
+    }
+
+    public void setGetUserId(String getUserId) {
+        this.getUserId = getUserId;
     }
 
     public String getWeixin() {
@@ -133,12 +131,27 @@ public class Damand {
         this.endTime = endTime;
     }
 
-
     public int getFlag() {
         return flag;
     }
 
     public void setFlag(int flag) {
         this.flag = flag;
+    }
+
+    @Override
+    public String toString() {
+        return "Damand{" +
+                "id='" + id + '\'' +
+                ", setUserId='" + setUserId + '\'' +
+                ", getUserId='" + getUserId + '\'' +
+                ", weixin='" + weixin + '\'' +
+                ", qq='" + qq + '\'' +
+                ", info='" + info + '\'' +
+                ", bounty='" + bounty + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", flag=" + flag +
+                '}';
     }
 }

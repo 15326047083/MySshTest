@@ -29,20 +29,33 @@ public class User {
     //密码
     @Column(name = "password")
     private String password;
+    //星级
+    @Column(name = "star")
+    private int star;
 
     public User() {
 
+    }
+
+    public User(String num, String name, String phone, String sex, String password, int star) {
+        this.num = num;
+        this.name = name;
+        this.phone = phone;
+        this.sex = sex;
+        this.password = password;
+        this.star = star;
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id='" + id + '\'' +
-                ", num=" + num +
+                ", num='" + num + '\'' +
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
                 ", sex='" + sex + '\'' +
                 ", password='" + password + '\'' +
+                ", star=" + star +
                 '}';
     }
 
@@ -94,12 +107,11 @@ public class User {
         this.password = password;
     }
 
-    public User(String num, String name, String phone, String sex, String password) {
+    public int getStar() {
+        return star;
+    }
 
-        this.num = num;
-        this.name = name;
-        this.phone = phone;
-        this.sex = sex;
-        this.password = password;
+    public void setStar(int star) {
+        this.star = star;
     }
 }
