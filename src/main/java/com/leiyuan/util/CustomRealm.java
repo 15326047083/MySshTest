@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.leiyuan.entity.User;
 import com.leiyuan.service.UserPermissionsService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -70,6 +71,7 @@ public class CustomRealm extends AuthorizingRealm {
         String password = getPasswordByUserName(username);
         if (password == null)
             return null;
+        User user=new User();
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(username, password, "customRealm");
         return authenticationInfo;
     }

@@ -26,8 +26,7 @@
         <property name="unauthorizedUrl" value="403.html"></property>
         <property name="filterChainDefinitions">
             <value>
-                /user/toNewUser=perms["user:new"]
-                /*=authc
+                /*=anon
             </value>
         </property>
     </bean>

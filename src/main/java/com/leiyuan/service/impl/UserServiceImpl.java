@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getByNum(String num) {
         // TODO Auto-generated method stub
-        String sql = "where studentNum='" + num + "'";
+        String sql = "where num='" + num + "'";
         return userRepository.getByConditions(sql);
     }
 

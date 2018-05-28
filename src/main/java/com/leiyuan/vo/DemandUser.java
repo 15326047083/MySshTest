@@ -1,59 +1,33 @@
-package com.leiyuan.entity;
+package com.leiyuan.vo;
 
-import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
-
-/**
- * 需求表
- */
-@Entity
-@Table(name = "demand")
-public class Demand {
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid")
-    private String id;
-    //发布需求的用户id
-    @Column(name = "setUserId")
+public class DemandUser {
+    private String demandId;
     private String setUserId;
-    //接单服务商的用户id
-    @Column(name = "getUserId")
-    private String getUserId;
-    //用户联系方式：微信
-    @Column(name = "weixin")
+    private String setUserNum;
+    private String setUserName;
+    private String setUserSex;
+    private int setUserStar;
     private String weixin;
-    //用户联系方式：qq
-    @Column(name = "qq")
     private String qq;
-    //需求详情
-    @Column(name = "info")
     private String info;
-    //需求地址
-    @Column(name = "place")
     private String place;
-    //赏金
-    @Column(name = "bounty")
     private String bounty;
-    //开始时间
-    @Column(name = "startTime")
     private String startTime;
-    //最晚结束时间
-    @Column(name = "endTime")
     private String endTime;
-    @Column(name = "endLongTime")
-    private long endLongTime;
-    //需求状态0：正常状态1：有人接单了2：订单完成3：订单取消4：订单过期
-    @Column(name = "flag")
     private int flag;
 
-    public Demand() {
+    public DemandUser() {
 
     }
 
-    public Demand(String setUserId, String getUserId, String weixin, String qq, String info, String place, String bounty, String startTime, String endTime, long endLongTime, int flag) {
+    public DemandUser(String demandId, String setUserId, String setUserNum, String setUserName, String setUserSex, int setUserStar, String weixin, String qq, String info, String place, String bounty, String startTime, String endTime, int flag) {
+        this.demandId = demandId;
         this.setUserId = setUserId;
-        this.getUserId = getUserId;
+        this.setUserNum = setUserNum;
+        this.setUserName = setUserName;
+        this.setUserSex = setUserSex;
+        this.setUserStar = setUserStar;
         this.weixin = weixin;
         this.qq = qq;
         this.info = info;
@@ -61,16 +35,18 @@ public class Demand {
         this.bounty = bounty;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.endLongTime = endLongTime;
         this.flag = flag;
     }
 
     @Override
     public String toString() {
-        return "Demand{" +
-                "id='" + id + '\'' +
+        return "DemandUser{" +
+                "demandId='" + demandId + '\'' +
                 ", setUserId='" + setUserId + '\'' +
-                ", getUserId='" + getUserId + '\'' +
+                ", setUserNum='" + setUserNum + '\'' +
+                ", setUserName='" + setUserName + '\'' +
+                ", setUserSex='" + setUserSex + '\'' +
+                ", setUserStar='" + setUserStar + '\'' +
                 ", weixin='" + weixin + '\'' +
                 ", qq='" + qq + '\'' +
                 ", info='" + info + '\'' +
@@ -78,18 +54,16 @@ public class Demand {
                 ", bounty='" + bounty + '\'' +
                 ", startTime='" + startTime + '\'' +
                 ", endTime='" + endTime + '\'' +
-                ", endLongTime=" + endLongTime +
                 ", flag=" + flag +
                 '}';
     }
 
-    public String getId() {
-
-        return id;
+    public String getDemandId() {
+        return demandId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setDemandId(String demandId) {
+        this.demandId = demandId;
     }
 
     public String getSetUserId() {
@@ -100,12 +74,36 @@ public class Demand {
         this.setUserId = setUserId;
     }
 
-    public String getGetUserId() {
-        return getUserId;
+    public String getSetUserNum() {
+        return setUserNum;
     }
 
-    public void setGetUserId(String getUserId) {
-        this.getUserId = getUserId;
+    public void setSetUserNum(String setUserNum) {
+        this.setUserNum = setUserNum;
+    }
+
+    public String getSetUserName() {
+        return setUserName;
+    }
+
+    public void setSetUserName(String setUserName) {
+        this.setUserName = setUserName;
+    }
+
+    public String getSetUserSex() {
+        return setUserSex;
+    }
+
+    public void setSetUserSex(String setUserSex) {
+        this.setUserSex = setUserSex;
+    }
+
+    public int getSetUserStar() {
+        return setUserStar;
+    }
+
+    public void setSetUserStar(int setUserStar) {
+        this.setUserStar = setUserStar;
     }
 
     public String getWeixin() {
@@ -130,6 +128,14 @@ public class Demand {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
     }
 
     public String getBounty() {
@@ -162,21 +168,5 @@ public class Demand {
 
     public void setFlag(int flag) {
         this.flag = flag;
-    }
-
-    public String getPlace() {
-        return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
-    public long getEndLongTime() {
-        return endLongTime;
-    }
-
-    public void setEndLongTime(long endLongTime) {
-        this.endLongTime = endLongTime;
     }
 }

@@ -16,6 +16,7 @@
 </head>
 <body>
 <!-- Top content -->
+<shiro:hasRole name=""></shiro:hasRole>
 <div class="top-content">
 
     <div class="inner-bg">
@@ -46,9 +47,9 @@
                               class="login-form" id="newUser">
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">Username</label> <input
-                                    type="email" name="email" placeholder="E-mail..."
+                                    type="number" name="num" placeholder="Num..."
                                     class="form-username form-control" id="form-username"
-                                    id="email" onkeyup="username(value)" value="${user.email}">
+                                    id="email" onkeyup="username(value)" value="${user.num}">
                             </div>
                             <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
                             <script type="text/javascript">
@@ -87,12 +88,6 @@
                             </select>
                             </div>
                             <div class="form-group">
-                                <label class="sr-only">Birthday</label> <input
-                                    type="date" name="birthday" placeholder="Birthday..."
-                                    class="form-password form-control"
-                                    value="${user.birthday}">
-                            </div>
-                            <div class="form-group">
                                 <label class="sr-only">Code</label> <input
                                     type="text" name="code" placeholder="Code..."
                                     class="form-password form-control">
@@ -103,6 +98,10 @@
                             </div>
                             <button type="submit" class="btn">Registered!</button>
                         </form>
+                        <p>${userSession.name}</p>
+                        <p>${userSession.num}</p>
+                        <p>${userSession.sex}</p>
+                        <p>${userSession.star}</p>
                     </div>
                 </div>
             </div>
