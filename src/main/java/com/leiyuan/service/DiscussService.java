@@ -9,4 +9,10 @@ public interface DiscussService {
     void save(Discuss discuss);
 
     List<DiscussUser> getDiscussList(String getUserId);
+
+    void deleteDiscussById(String discussId);
+
+
+    List<DiscussUser> queryAllList();
+
 }

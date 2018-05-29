@@ -25,7 +25,16 @@ public class DiscussRepositoryImpl extends CommonRepositoryImpl<Discuss> impleme
     public List<DiscussUser> getDiscussList(String getUserId) {
         return (List<DiscussUser>) getCurrentSession().createQuery("select new com.leiyuan.vo.DiscussUser(d.id as " +
                 "discussId,d.setUserId as setUserId,u.name as setUserName,u.num as setUserNum,u.star as setUserStar,d" +
-                ".getUserId as getUserId,d.info as info,d.star as star) from  Discuss d,User u where u.id=d.setUserId" +
-                " and d.getUserId='" + getUserId + "'").list();
+                ".getUserId as getUserId,d.info as info,d.star as star,d.date as date) from  Discuss d,User u where u" +
+                ".id=d.setUserId and d.getUserId='" + getUserId + "'").list();
+    }
+
+    @Override
+    @Transactional
+    public List<DiscussUser> queryAllList() {
+        return (List<DiscussUser>) getCurrentSession().createQuery("select new com.leiyuan.vo.DiscussUser(d.id as " +
+                "discussId,d.setUserId as setUserId,u.name as setUserName,u.num as setUserNum,u.star as setUserStar,d" +
+                ".getUserId as getUserId,d.info as info,d.star as star,d.date as date) from  Discuss d,User u where u" +
+                ".id=d.setUserId").list();
     }
 }

@@ -23,4 +23,14 @@ public class DiscussServiceImpl implements DiscussService {
     public List<DiscussUser> getDiscussList(String getUserId) {
         return discussRepository.getDiscussList(getUserId);
     }
+
+    @Override
+    public void deleteDiscussById(String discussId) {
+        discussRepository.delete(discussId);
+    }
+
+    @Override
+    public List<DiscussUser> queryAllList() {
+        return discussRepository.queryAllList();
+    }
 }

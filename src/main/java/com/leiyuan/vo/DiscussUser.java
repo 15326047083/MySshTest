@@ -1,7 +1,5 @@
 package com.leiyuan.vo;
 
-import com.leiyuan.entity.Discuss;
-
 public class DiscussUser {
     private String discussId;
     private String setUserId;
@@ -11,13 +9,15 @@ public class DiscussUser {
     private String getUserId;
     private String info;
     private int star;
+    private String date;
 
-    public DiscussUser() {
+    public DiscussUser(String date) {
 
+        this.date = date;
     }
 
     public DiscussUser(String discussId, String setUserId, String setUserName, String setUserNum, int setUserStar,
-                       String getUserId, String info, int star) {
+                       String getUserId, String info, int star, String date) {
         this.discussId = discussId;
         this.setUserId = setUserId;
         this.setUserName = setUserName;
@@ -26,6 +26,7 @@ public class DiscussUser {
         this.getUserId = getUserId;
         this.info = info;
         this.star = star;
+        this.date = date;
     }
 
     @Override
@@ -35,10 +36,11 @@ public class DiscussUser {
                 ", setUserId='" + setUserId + '\'' +
                 ", setUserName='" + setUserName + '\'' +
                 ", setUserNum='" + setUserNum + '\'' +
-                ", setUserStar='" + setUserStar + '\'' +
+                ", setUserStar=" + setUserStar +
                 ", getUserId='" + getUserId + '\'' +
                 ", info='" + info + '\'' +
                 ", star=" + star +
+                ", date='" + date + '\'' +
                 '}';
     }
 
@@ -104,5 +106,13 @@ public class DiscussUser {
 
     public void setStar(int star) {
         this.star = star;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }
