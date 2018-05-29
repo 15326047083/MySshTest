@@ -71,11 +71,11 @@ public class DemandServiceImpl implements DemandService {
     public List<Demand> getMyDemandList(String userId, String flag) {
         String sql = "";
         if ("set".equals(flag)) {
-            sql = "";
+            sql = "from Demand where setUserId='" + userId + "'";
         } else if ("get".equals(flag)) {
-
+            sql = "from Demand where getUserId='" + userId + "'";
         }
-        return null;
+        return demandRepository.queryAll(sql);
     }
 
     @Override
