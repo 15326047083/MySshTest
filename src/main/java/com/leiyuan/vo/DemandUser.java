@@ -3,7 +3,9 @@ package com.leiyuan.vo;
 
 public class DemandUser {
     private String demandId;
+    private String typeId;
     private String setUserId;
+    private String typeName;
     private String setUserNum;
     private String setUserName;
     private String setUserSex;
@@ -21,9 +23,15 @@ public class DemandUser {
 
     }
 
-    public DemandUser(String demandId, String setUserId, String setUserNum, String setUserName, String setUserSex, int setUserStar, String weixin, String qq, String info, String place, String bounty, String startTime, String endTime, int flag) {
+    public DemandUser(String demandId, String typeId, String setUserId, String typeName, String setUserNum, String
+            setUserName, String
+                              setUserSex, int setUserStar, String weixin, String qq, String info, String place,
+                      String bounty, String
+                              startTime, String endTime, int flag) {
         this.demandId = demandId;
+        this.typeId = typeId;
         this.setUserId = setUserId;
+        this.typeName = typeName;
         this.setUserNum = setUserNum;
         this.setUserName = setUserName;
         this.setUserSex = setUserSex;
@@ -42,11 +50,13 @@ public class DemandUser {
     public String toString() {
         return "DemandUser{" +
                 "demandId='" + demandId + '\'' +
+                ", typeId='" + typeId + '\'' +
                 ", setUserId='" + setUserId + '\'' +
+                ", typeName='" + typeName + '\'' +
                 ", setUserNum='" + setUserNum + '\'' +
                 ", setUserName='" + setUserName + '\'' +
                 ", setUserSex='" + setUserSex + '\'' +
-                ", setUserStar='" + setUserStar + '\'' +
+                ", setUserStar=" + setUserStar +
                 ", weixin='" + weixin + '\'' +
                 ", qq='" + qq + '\'' +
                 ", info='" + info + '\'' +
@@ -168,5 +178,21 @@ public class DemandUser {
 
     public void setFlag(int flag) {
         this.flag = flag;
+    }
+
+    public String getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 }

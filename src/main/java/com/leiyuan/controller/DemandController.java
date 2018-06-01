@@ -99,8 +99,24 @@ public class DemandController {
      */
     @RequiresRoles("user")
     @RequestMapping("/getMyDemandList/{userId}/{flag}")
-    public String getMyDemandList(@PathVariable("userId") String userId, @PathVariable("flag") String flag, Model model) {
+    public String getMyDemandList(@PathVariable("userId") String userId, @PathVariable("flag") String flag, Model
+            model) {
         List<Demand> list = demandService.getMyDemandList(userId, flag);
         return "";
+    }
+
+    /**
+     * 根据类型id获取需求列表
+     *
+     * @param typeId 类型id
+     * @param model  想页面传递获取需求列表
+     * @return 列表展示页面
+     */
+    //@ResponseBody
+    @RequestMapping("/queryByTypeId/{typeId}")
+    public String queryByTypeId(@PathVariable("typeId") String typeId, Model model) {
+        List<Demand> demandList = demandService.queryByTypeId(typeId);
+        model.addAttribute("demandList", demandList);
+        return demandList.toString();
     }
 }

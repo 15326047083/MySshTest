@@ -83,4 +83,9 @@ public class DemandServiceImpl implements DemandService {
         return demandRepository.getDemandUser(demandId);
     }
 
+    @Override
+    public List<Demand> queryByTypeId(String typeId) {
+        return demandRepository.queryByTypeId(typeId);
+    }
+
 }

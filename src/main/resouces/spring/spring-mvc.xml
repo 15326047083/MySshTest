@@ -31,8 +31,6 @@
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
     </bean>
-    <!--&lt;!&ndash;这里是对静态资源的映射&ndash;&gt;-->
-    <!--<mvc:resources mapping="/js/**" location="/resources/js/"/>-->
-    <!--<mvc:resources mapping="/css/**" location="/resources/css/"/>-->
-    <!--<mvc:resources mapping="/img/**" location="/resources/img/"/>-->
+    <!-- 资源映射 -->
+    <mvc:resources location="/WEB-INF/css/" mapping="/css/**"/>
 </beans>

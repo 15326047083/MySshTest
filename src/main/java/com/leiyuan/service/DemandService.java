@@ -17,4 +17,6 @@ public interface DemandService {
     List<Demand> getMyDemandList(String userId, String flag);
 
     DemandUser getDemandUser(String demandId);
+
+    List<Demand> queryByTypeId(String typeId);
 }

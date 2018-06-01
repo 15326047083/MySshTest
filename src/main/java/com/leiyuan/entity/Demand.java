@@ -20,6 +20,9 @@ public class Demand {
     //接单服务商的用户id
     @Column(name = "getUserId")
     private String getUserId;
+    //订单类型id
+    @Column(name = "typeId")
+    private String typeId;
     //用户联系方式：微信
     @Column(name = "weixin")
     private String weixin;
@@ -51,9 +54,11 @@ public class Demand {
 
     }
 
-    public Demand(String setUserId, String getUserId, String weixin, String qq, String info, String place, String bounty, String startTime, String endTime, long endLongTime, int flag) {
+    public Demand(String setUserId, String getUserId, String typeId, String weixin, String qq, String info, String
+            place, String bounty, String startTime, String endTime, long endLongTime, int flag) {
         this.setUserId = setUserId;
         this.getUserId = getUserId;
+        this.typeId = typeId;
         this.weixin = weixin;
         this.qq = qq;
         this.info = info;
@@ -71,6 +76,7 @@ public class Demand {
                 "id='" + id + '\'' +
                 ", setUserId='" + setUserId + '\'' +
                 ", getUserId='" + getUserId + '\'' +
+                ", typeId='" + typeId + '\'' +
                 ", weixin='" + weixin + '\'' +
                 ", qq='" + qq + '\'' +
                 ", info='" + info + '\'' +
@@ -178,5 +184,13 @@ public class Demand {
 
     public void setEndLongTime(long endLongTime) {
         this.endLongTime = endLongTime;
+    }
+
+    public String getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
     }
 }
