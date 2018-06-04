@@ -1,7 +1,10 @@
 package com.leiyuan.controller;
 
+import com.aliyuncs.exceptions.ClientException;
 import com.leiyuan.entity.UserRoles;
 import com.leiyuan.service.UserRolesService;
+import com.leiyuan.util.Send;
+import com.leiyuan.util.SmsDemo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -19,8 +22,8 @@ import com.leiyuan.entity.User;
 import com.leiyuan.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Controller
@@ -40,7 +43,7 @@ public class UserController {
      */
     @RequestMapping("/toLogin")
     public String toLogin() {
-        return "login";
+        return "user/login";
     }
 
     /**
@@ -50,7 +53,7 @@ public class UserController {
      * @return 跳转至主页或者是返回登陆界面
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(User user , HttpServletRequest request) {
+    public String login(User user, HttpServletRequest request) {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getNum(), user.getPassword());
         try {
@@ -59,10 +62,10 @@ public class UserController {
         } catch (Exception e) {
             return e.getMessage();
         }
-        user=userService.getByNum(user.getNum());
-        HttpSession session=request.getSession();
-        session.setAttribute("userSession",user);
-        return "new";
+        user = userService.getByNum(user.getNum());
+        HttpSession session = request.getSession();
+        session.setAttribute("userSession", user);
+        return "user/new";
     }
 
     /**
@@ -72,13 +75,13 @@ public class UserController {
      */
     @RequestMapping("/toNewUser")
     public String toNewUser() {
-        return "new";
+        return "user/new";
     }
 
     @ResponseBody
-    @RequestMapping(value = "/verifyEmail", method = RequestMethod.POST)
-    public String verifyEmail(User user) {
-        User u = userService.getByNum(user.getNum());
+    @RequestMapping(value = "/verifyEmail/{num}", method = RequestMethod.POST)
+    public String verifyEmail(@PathVariable("num") String num) {
+        User u = userService.getByNum(num);
         if (u != null) {
             return "1";
         } else {
@@ -103,7 +106,6 @@ public class UserController {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getNum(), user.getPassword());
         try {
-
             subject.login(token);
         } catch (Exception e) {
             return e.getMessage();
@@ -152,5 +154,26 @@ public class UserController {
         User user = userService.get(userId);
         model.addAttribute("getUser", user);
         return "跳转至展示用户详情页面";
+    }
+
+    /**
+     * 注册发送验证码
+     *
+     * @param phone 手机号
+     * @throws UnsupportedEncodingException
+     */
+    @ResponseBody
+    @RequestMapping(value = "/sendCode/{phone}", method = RequestMethod.POST)
+    public String sendCode(@PathVariable("phone") String phone, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String code = null;
+        try {
+            code = SmsDemo.sendSms(phone);
+            session.setAttribute("code", code);
+        } catch (ClientException e) {
+            e.printStackTrace();
+        }
+        System.out.println(code);
+        return code;
     }
 }
