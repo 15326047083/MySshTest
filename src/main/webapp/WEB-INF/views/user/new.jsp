@@ -11,7 +11,7 @@
 <head>
 
     <meta charset="utf-8">
-    <title>登录(Login)</title>
+    <title>内蒙古财经大学服务网站注册</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">

@@ -43,10 +43,10 @@ public class DemandServiceImpl implements DemandService {
     public void takeDemand(String demandId, String setUserId) {
         Demand demand = demandRepository.get(demandId);
         if ("null".equals(setUserId)) {
-            demand.setSetUserId("");
+            demand.setGetUserId("");
             demand.setFlag(0);
         } else {
-            demand.setSetUserId(setUserId);
+            demand.setGetUserId(setUserId);
             demand.setFlag(1);
         }
         demandRepository.saveOrUpdate(demand);

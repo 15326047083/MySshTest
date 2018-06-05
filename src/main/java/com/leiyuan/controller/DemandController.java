@@ -27,7 +27,7 @@ public class DemandController {
      */
     @RequestMapping("/toSaveDemand")
     public String toSaveDemand() {
-        return "/demand";
+        return "/demand/new";
     }
 
     /**
@@ -86,7 +86,18 @@ public class DemandController {
     public String getDemandList(@PathVariable("flag") int flag, Model model) {
         List<Demand> demandList = demandService.getDemandList(flag);
         model.addAttribute("demandList", demandList);
-        return "";
+        String title = "";
+        if (flag == 0) {
+            title = "全部需求列表";
+        } else if (flag == 2) {
+            title = "完成案例";
+        } else if (flag == 1) {
+            title = "进行中需求列表";
+        } else {
+            title = "过期需求列表";
+        }
+        model.addAttribute("title", title);
+        return "index";
     }
 
     /**

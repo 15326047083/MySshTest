@@ -1,7 +1,9 @@
 package com.leiyuan.controller;
 
 import com.aliyuncs.exceptions.ClientException;
+import com.leiyuan.entity.DemandType;
 import com.leiyuan.entity.UserRoles;
+import com.leiyuan.service.DemandTypeService;
 import com.leiyuan.service.UserRolesService;
 import com.leiyuan.util.Send;
 import com.leiyuan.util.SmsDemo;
@@ -34,6 +36,8 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private DemandTypeService demandTypeService;
+    @Autowired
     private UserRolesService userRolesService;
 
     /**
@@ -57,15 +61,16 @@ public class UserController {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getNum(), user.getPassword());
         try {
-
             subject.login(token);
         } catch (Exception e) {
-            return e.getMessage();
+            return "/user/login";
         }
+        List<DemandType> demandTypeList = demandTypeService.queryAll();
         user = userService.getByNum(user.getNum());
         HttpSession session = request.getSession();
         session.setAttribute("userSession", user);
-        return "user/new";
+        session.setAttribute("typeList", demandTypeList);
+        return "index";
     }
 
     /**
