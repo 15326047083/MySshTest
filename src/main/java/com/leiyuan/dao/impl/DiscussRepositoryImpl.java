@@ -37,4 +37,18 @@ public class DiscussRepositoryImpl extends CommonRepositoryImpl<Discuss> impleme
                 ".getUserId as getUserId,d.info as info,d.star as star,d.date as date) from  Discuss d,User u where u" +
                 ".id=d.setUserId").list();
     }
+
+    @Override
+    @Transactional
+    public long countByGetUserId(String getUserId) {
+        return (long) getCurrentSession().createQuery("select count(*) from Discuss where getUserId='" + getUserId +
+                "'").uniqueResult();
+    }
+
+    @Override
+    @Transactional
+    public List<Long> getStarListByGetUserId(String getUserId) {
+        return (List<Long>) getCurrentSession().createQuery("select star from Discuss where getUserId='" + getUserId +
+                "'").list();
+    }
 }

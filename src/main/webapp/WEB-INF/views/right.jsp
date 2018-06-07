@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div id="right-sidebar" class="col-md-4 col-sm-4">
 
     <!-- Single Widget -->
@@ -13,6 +15,36 @@
                     <i class="fa fa-search"></i>
                 </button>
             </form>
+        </div>
+    </aside>
+    <!-- End Single Widget -->
+
+    <!-- Single Widget -->
+    <aside class="widget wow fadeInDown">
+        <div class="widget-title">
+            <h3>按需求状态查询</h3>
+        </div>
+        <div class="widget-content">
+            <ul class="categories">
+                <li><i class="fa fa-plus"></i> <a href="/demand/gerDemandList/0">正常状态</a></li>
+                <li><i class="fa fa-plus"></i> <a href="/demand/gerDemandList/1">进行中</a></li>
+                <li><i class="fa fa-plus"></i> <a href="/demand/gerDemandList/4">已过期</a></li>
+                <li><i class="fa fa-plus"></i> <a href="/demand/getMyDemandList/${userSession.id}/set">我发布的</a></li>
+                <li><i class="fa fa-plus"></i> <a href="/demand/getMyDemandList/${userSession.id}/get">我接受的</a></li>
+            </ul>
+        </div>
+    </aside>
+    <!-- End Single Widget -->
+
+    <!-- Single Widget -->
+    <aside class="widget wow fadeInDown">
+        <div class="widget-title">
+            <h3>按分类查询</h3>
+        </div>
+        <div class="widget-content">
+            <c:forEach var="type" items="${typeList}">
+                <a class="tag" href="#">${type.name}</a>
+            </c:forEach>
         </div>
     </aside>
     <!-- End Single Widget -->
@@ -162,59 +194,5 @@
     </aside>
     <!-- End Single Widget -->
 
-    <!-- Single Widget -->
-    <aside class="widget wow fadeInDown">
-        <div class="widget-title">
-            <h3>Categories</h3>
-        </div>
-        <div class="widget-content">
-            <ul class="categories">
-                <li><i class="fa fa-plus"></i> <a href="#">Marketing Policy</a></li>
-                <li><i class="fa fa-plus"></i> <a href="#">Business Strategy</a></li>
-                <li><i class="fa fa-plus"></i> <a href="#">Web Research</a></li>
-                <li><i class="fa fa-plus"></i> <a href="#">Web Development</a></li>
-                <li><i class="fa fa-plus"></i> <a href="#">Business Model</a></li>
-            </ul>
-        </div>
-    </aside>
-    <!-- End Single Widget -->
-
-    <!-- Single Widget -->
-    <aside class="widget wow fadeInDown">
-        <div class="widget-title">
-            <h3>Tag Cloud</h3>
-        </div>
-        <div class="widget-content">
-            <a class="tag" href="#">Mobile</a>
-            <a class="tag" href="#">Web</a>
-            <a class="tag" href="#">Electronics</a>
-            <a class="tag" href="#">SEO</a>
-            <a class="tag" href="#">Business Story</a>
-            <a class="tag" href="#">Post Query</a>
-            <a class="tag" href="#">HTML5</a>
-            <a class="tag" href="#">CSS3</a>
-            <a class="tag" href="#">jQuery</a>
-            <a class="tag" href="#">Javascript</a>
-        </div>
-    </aside>
-    <!-- End Single Widget -->
 
 </div>
-
-<!-- Main jQuery -->
-<script src="/css/index/js/jquery-1.11.0.min.js"></script>
-<!-- Bootstrap 3.1 -->
-<script src="/css/index/js/bootstrap.min.js"></script>
-<!-- Back to Top -->
-<script src="/css/index/js/jquery.scrollUp.min.js"></script>
-<script src="/css/index/js/classie.js"></script>
-<!-- Owl Carousel -->
-<script src="/css/index/js/owl.carousel.min.js"></script>
-<!-- jQuery Easing -->
-<script src="/css/index/js/jquery.easing-1.3.pack.js"></script>
-<!-- wow.min Script -->
-<script src="/css/index/js/wow.min.js"></script>
-<!-- For video responsive -->
-<script src="/css/index/js/jquery.fitvids.js"></script>
-<!-- Custom js -->
-<script src="/css/index/js/custom.js"></script>

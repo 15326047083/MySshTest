@@ -3,14 +3,13 @@ package com.leiyuan.controller;
 import com.aliyuncs.exceptions.ClientException;
 import com.leiyuan.entity.DemandType;
 import com.leiyuan.entity.UserRoles;
-import com.leiyuan.service.DemandTypeService;
-import com.leiyuan.service.UserRolesService;
-import com.leiyuan.util.Send;
+import com.leiyuan.service.*;
 import com.leiyuan.util.SmsDemo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.leiyuan.entity.User;
-import com.leiyuan.service.UserService;
 
+import javax.persistence.Id;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
@@ -34,11 +33,14 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private DemandService demandService;
     @Autowired
     private DemandTypeService demandTypeService;
     @Autowired
     private UserRolesService userRolesService;
+    @Autowired
+    private DiscussService discussService;
 
     /**
      * 跳转至登录界面
@@ -70,7 +72,7 @@ public class UserController {
         HttpSession session = request.getSession();
         session.setAttribute("userSession", user);
         session.setAttribute("typeList", demandTypeList);
-        return "index";
+        return "redirect:/user/toIndex";
     }
 
     /**
@@ -102,7 +104,7 @@ public class UserController {
      * @return 跳转页面
      */
     @RequestMapping(value = "/newUser", method = RequestMethod.POST)
-    public String newUser(User user) {
+    public String newUser(User user, HttpServletRequest request) {
         userService.saveOrUpdate(user);
         //赋予该账号角色信息
         UserRoles userRoles = new UserRoles(user.getNum(), "user");
@@ -115,7 +117,12 @@ public class UserController {
         } catch (Exception e) {
             return e.getMessage();
         }
-        return "跳转至主页";
+        List<DemandType> demandTypeList = demandTypeService.queryAll();
+        user = userService.getByNum(user.getNum());
+        HttpSession session = request.getSession();
+        session.setAttribute("userSession", user);
+        session.setAttribute("typeList", demandTypeList);
+        return "redirect:/user/toIndex";
     }
 
     /**
@@ -170,15 +177,41 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/sendCode/{phone}", method = RequestMethod.POST)
     public String sendCode(@PathVariable("phone") String phone, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        String code = null;
-        try {
-            code = SmsDemo.sendSms(phone);
-            session.setAttribute("code", code);
-        } catch (ClientException e) {
-            e.printStackTrace();
+        User u = userService.getByPhone(phone);
+        if (u != null) {
+            return "0";
+        } else {
+            HttpSession session = request.getSession();
+            String code = null;
+            try {
+                code = SmsDemo.sendSms(phone);
+                session.setAttribute("code", code);
+            } catch (ClientException e) {
+                e.printStackTrace();
+            }
+            System.out.println(code);
+            return code;
         }
-        System.out.println(code);
-        return code;
+    }
+
+    @RequestMapping("/toIndex")
+    public String toIndex(Model model) {
+        long userNumber = userService.count();
+        long demandNumber = demandService.count();
+        model.addAttribute("userNumber", userNumber);
+        model.addAttribute("demandNumber", demandNumber);
+        model.addAttribute("demandTypeNumber", demandTypeService.count());
+        model.addAttribute("discussNumber", discussService.count());
+        return "index";
+    }
+
+    /**
+     * 未经授权进入跳转页面
+     *
+     * @return 进入跳转界面
+     */
+    @RequestMapping("/toJump")
+    public String toJump() {
+        return "jump";
     }
 }

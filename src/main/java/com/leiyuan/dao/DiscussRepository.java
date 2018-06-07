@@ -10,4 +10,8 @@ public interface DiscussRepository extends CommonRepository<Discuss> {
     List<DiscussUser> getDiscussList(String getUserId);
 
     List<DiscussUser> queryAllList();
+
+    long countByGetUserId(String getUserId);
+
+    List<Long> getStarListByGetUserId(String getUserId);
 }

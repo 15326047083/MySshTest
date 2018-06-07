@@ -1,4 +1,5 @@
 package com.leiyuan.service.impl;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,12 @@ public class UserServiceImpl implements UserService {
     public User getByNum(String num) {
         // TODO Auto-generated method stub
         String sql = "where num='" + num + "'";
+        return userRepository.getByConditions(sql);
+    }
+
+    @Override
+    public User getByPhone(String phone) {
+        String sql = "where phone='" + phone + "'";
         return userRepository.getByConditions(sql);
     }
 

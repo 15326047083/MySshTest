@@ -35,7 +35,8 @@
         </select>
         <span id="span">
         <input id="phone" type="number" name="phone" class="username" placeholder="请输入您的手机号！"
-               onkeyup="getPhone(this.value)">
+               onkeyup="getPhone(this.value)" required>
+        <input id="code" type="hidden" name="code" class="username" placeholder="请输入您的验证码！" required>
         </span>
         <script>
             function username(num) {
@@ -64,34 +65,49 @@
                         async: false,
                         cache: false,
                         success: function (data) {
-                            document.getElementById("sureCode").value = data;
+                            if (data == "0") {
+                                document.getElementById("phone").style.color = "red";
+                                document.getElementById("code").type = "hidden";
+                            } else {
+                                document.getElementById("phone").style.color = "white";
+                                document.getElementById("code").type = "number";
+                                document.getElementById("sureCode").value = data;
+                            }
                         },
                         error: function () {
                         },
                     });
-                    var input = document.createElement('input');
-                    input.setAttribute('class', 'username'); //定义类型是文本输
-                    input.setAttribute('name', 'code'); //定义类型是文本输入
-                    input.setAttribute('id', 'code'); //定义类型是文本输入placeholder
-                    input.setAttribute('placeholder', '请输入您的验证码！'); //定义类型是文本输入placeholder
-                    document.getElementById('span').appendChild(input); //添加到form中显示
                 } else {
-                    document.getElementById('code').parentNode.removeChild(document.getElementById('code'));
+                    document.getElementById("code").type = "hidden";
                 }
             }
         </script>
-        <button type="submit" onclick="return submitReply()" class="submit_button">登录</button>
+        <button type="submit" onclick="return submitReply()" class="submit_button">注册并登陆</button>
+        <a href="/user/toLogin" style="color: blue;">返回登陆</a>
         <script>
             function submitReply() {
                 var code = document.getElementById("code").value;
-                var color = document.getElementById("num").style.color;
+                var numColor = document.getElementById("num").style.color;
+                var phoneColor = document.getElementById("phone").style.color;
                 var pswlen = document.getElementById("psw").value.length;
                 var namelen = document.getElementById("name").value.length;
                 var sureCode = document.getElementById("sureCode").value;
-                if (color != "red" && pswlen >= 6 && namelen >= 1 && code == sureCode) {
+                var numlen = document.getElementById("num").value.length;
+                if (numColor != "red" && pswlen >= 6 && namelen >= 1 && code == sureCode && phoneColor != "red" && numlen == 9) {
                     return true;
                 }
-                alert(code + color + pswlen + namelen + sureCode);
+                var message = "";
+                if (code != sureCode)
+                    message = message + "验证码错误！\n";
+                if (numColor == "red")
+                    message = message + "该账号已存在，请务必使用自己的学号进行注册！\n";
+                if (numlen != 9)
+                    message = message + "学号错误，请务必使用自己的学号进行注册！\n";
+                if (phoneColor == "red")
+                    message = message + "该手机已注册！\n";
+                if (pswlen < 6)
+                    message = message + "密码过短，请加强密码！\n";
+                alert(message);
                 return false;
             }
         </script>

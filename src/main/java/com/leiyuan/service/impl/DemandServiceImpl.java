@@ -57,14 +57,22 @@ public class DemandServiceImpl implements DemandService {
         String Sql = "";
         //如果查询等待接单的需求则至展示未过期的需求
         if (flag == 0) {
-            Sql = " and endLongTime>" + new Date().getTime();
+            Sql = "where flag=" + flag + " and endLongTime>" + new Date().getTime();
         }
         //查询以过期需求订单
         else if (flag == 4) {
-            Sql = " and endLongTime<" + new Date().getTime();
+            Sql = "where endLongTime<" + new Date().getTime();
+        } else {
+            Sql = "where flag=" + flag;
         }
-        String sql = "from Demand where flag=" + flag + Sql;
-        return demandRepository.queryAll(sql);
+        String sql = "from Demand " + Sql;
+        List<Demand> list = demandRepository.queryAll(sql);
+        if (flag == 4) {
+            for (int i = 0; i < list.size(); i++) {
+                list.get(i).setFlag(4);
+            }
+        }
+        return list;
     }
 
     @Override
@@ -86,6 +94,21 @@ public class DemandServiceImpl implements DemandService {
     @Override
     public List<Demand> queryByTypeId(String typeId) {
         return demandRepository.queryByTypeId(typeId);
+    }
+
+    @Override
+    public void delete(String id) {
+        demandRepository.delete(id);
+    }
+
+    @Override
+    public void saveOrUpdate(Demand demand) {
+        demandRepository.saveOrUpdate(demand);
+    }
+
+    @Override
+    public long count() {
+        return demandRepository.count();
     }
 
 }

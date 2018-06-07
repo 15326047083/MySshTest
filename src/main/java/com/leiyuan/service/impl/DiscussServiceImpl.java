@@ -33,4 +33,19 @@ public class DiscussServiceImpl implements DiscussService {
     public List<DiscussUser> queryAllList() {
         return discussRepository.queryAllList();
     }
+
+    @Override
+    public long count() {
+        return discussRepository.count();
+    }
+
+    @Override
+    public long countByGetUserId(String getUserId) {
+        return discussRepository.countByGetUserId(getUserId);
+    }
+
+    @Override
+    public List<Long> getStarListByGetUserId(String getUserId) {
+        return discussRepository.getStarListByGetUserId(getUserId);
+    }
 }

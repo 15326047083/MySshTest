@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
@@ -61,9 +62,9 @@
 
         <nav class="collapse navbar-collapse navbar-right">
             <ul id="nav" class="nav navbar-nav">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="index.html#about">About Us</a></li>
-                <li><a href="index.html#services">Services</a></li>
+                <li><a href="/user/toIndex">首页</a></li>
+                <li><a href="/demand/gerDemandList/0">服务商城</a></li>
+                <li><a href="/demand/toSaveDemand">发布服务需求</a></li>
                 <li><a href="index.html#our-team">Team</a></li>
                 <li><a href="index.html#pricing">Pricing</a></li>
                 <li><a href="index.html#showcase">Portfolio</a></li>

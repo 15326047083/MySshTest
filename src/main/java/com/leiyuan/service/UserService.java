@@ -24,4 +24,5 @@ public interface UserService {
 
     User getByNum(String num);
 
+    User getByPhone(String phone);
 }

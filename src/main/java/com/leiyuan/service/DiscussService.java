@@ -15,4 +15,9 @@ public interface DiscussService {
 
     List<DiscussUser> queryAllList();
 
+    long count();
+
+    long countByGetUserId(String getUserId);
+
+    List<Long> getStarListByGetUserId(String getUserId);
 }

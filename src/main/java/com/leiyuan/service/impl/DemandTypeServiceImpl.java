@@ -37,4 +37,9 @@ public class DemandTypeServiceImpl implements DemandTypeService {
     public DemandType getById(String demandTypeId) {
         return demandTypeRepository.get(demandTypeId);
     }
+
+    @Override
+    public long count() {
+        return demandTypeRepository.count();
+    }
 }

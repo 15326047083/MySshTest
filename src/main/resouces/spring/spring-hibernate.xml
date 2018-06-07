@@ -23,10 +23,11 @@
           class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"></property>
         <property name="loginUrl" value="/user/toLogin"></property>
-        <property name="unauthorizedUrl" value="403.html"></property>
+        <property name="unauthorizedUrl" value="/user/toLogin"></property>
         <property name="filterChainDefinitions">
             <value>
-                /*=anon
+                /user/toIndex=anon
+                /*=authc
             </value>
         </property>
     </bean>

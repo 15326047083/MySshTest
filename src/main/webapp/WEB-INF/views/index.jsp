@@ -1,3 +1,4 @@
+<%@ page import="java.util.Date" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -8,18 +9,37 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<body class="blog-page">
+<head>
+
+    <!-- Grid Component css -->
+    <link rel="stylesheet" href="/css/index/css/component.css">
+    <!-- Slit Slider css -->
+    <link rel="stylesheet" href="/css/index/css/slit-slider.css">
+    <!-- Media Queries -->
+    <link rel="stylesheet" href="/css/index/css/media-queries.css">
+
+    <!-- Oswald / Title Font -->
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css'>
+    <!-- Ubuntu / Body Font -->
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,300' rel='stylesheet' type='text/css'>
+
+    <!-- Modernizer Script for old Browsers -->
+    <script src="/css/index/js/modernizr-2.6.2.min.js"></script>
+</head>
+<body id="body">
 <!--
 Start Preloader
 ==================================== -->
 <div id="loading-mask">
     <div class="loading-img">
-        <img alt="Meghna Preloader" src="/css/index/img/preloader.gif"/>
+        <img alt="Meghna Preloader" src="img/preloader.gif"/>
     </div>
 </div>
 <!--
 End Preloader
 ==================================== -->
+
+<!--/#home section-->
 
 <!--
 Fixed Navigation
@@ -29,262 +49,270 @@ Fixed Navigation
 End Fixed Navigation
 ==================================== -->
 
-
-<!-- Start Blog Banner
+<!--
+Start About Section
 ==================================== -->
-<section id="blog-banner">
+<section id="about" class="bg-one">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 text-center">
 
-                <div class="blog-icon">
-                    <i class="fa fa-book fa-4x"></i>
-                </div>
-                <div class="blog-title">
-                    <h1>${title}</h1>
-                </div>
+            <!-- section title -->
+            <div class="title text-center wow fadeIn" data-wow-duration="1500ms">
+                <h2>About <span class="color">Us</span></h2>
+                <div class="border"></div>
+            </div>
+            <!-- /section title -->
 
-            </div>     <!-- End col-lg-12 -->
+            <!-- About item -->
+            <div class="col-md-4 text-center wow fadeInUp" data-wow-duration="500ms">
+                <div class="wrap-about">
+                    <div class="icon-box">
+                        <i class="fa fa-lightbulb-o fa-4x"></i>
+                    </div>
+                    <!-- Express About Yourself -->
+                    <div class="about-content text-center">
+                        <h3 class="ddd">灵感来源</h3>
+                        <p>微信中有很多类似的服务群，代取快递、买药等等需求服务</p>
+                    </div>
+                </div>
+            </div>
+            <!-- End About item -->
+
+            <!-- About item -->
+            <div class="col-md-4 text-center wow fadeInUp" data-wow-duration="500ms" data-wow-delay="250ms">
+                <div class="wrap-about">
+                    <div class="icon-box">
+                        <i class="fa fa-users fa-4x"></i>
+                    </div>
+                    <!-- Express About Yourself -->
+                    <div class="about-content text-center">
+                        <h3>服务人群</h3>
+                        <p>我们网站主要服务于在校大学生，你可以发布需求也可以在方便的时候接取订单</p>
+                    </div>
+                </div>
+            </div>
+            <!-- End About item -->
+
+            <!-- About item -->
+            <div class="col-md-4 text-center wow fadeInUp" data-wow-duration="500ms" data-wow-delay="500ms">
+                <div class="wrap-about kill-margin-bottom">
+                    <div class="icon-box">
+                        <i class="fa fa-users fa-4x"></i>
+                    </div>
+                    <!-- Express About Yourself -->
+                    <div class="about-content text-center">
+                        <h3>服务范围</h3>
+                        <p>服务于内蒙古财经大学，但不仅限校内服务</p>
+                    </div>
+                </div>
+            </div>
+            <!-- End About item -->
+
         </div>        <!-- End row -->
-    </div>       <!-- End container -->
-</section>    <!-- End Section -->
+    </div>    <!-- End container -->
+</section>   <!-- End section -->
 
-
-<!-- Start Blog Post Section
+<!--
+Start Counter Section
 ==================================== -->
-<section id="blog-page">
+
+<section id="counter" class="parallax-section">
     <div class="container">
         <div class="row">
 
-            <div id="blog-posts" class="col-md-8 col-sm-8">
-                <div class="post-item">
-
-                    <!-- Single Post -->
-                    <c:forEach var="d" items="${demandList}">
-                        <article class="entry wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-                            <div class="post-excerpt">
-                                <h3>佣金：${d.bounty} 元人民币</h3>
-                                    ${d.info}
-                            </div>
-                            <div class="post-meta">
-                            <span class="post-date">
-                                <i class="fa fa-calendar"></i>${d.endTime}
-                            </span>
-                                <c:if test="${d.flag==0}">
-                                <span class="post-tags">
-                                <i class="fa fa-arrow-circle-right"></i><a
-                                        href="/demand/takeDemand/${d.id}/${userSession.id}">接受订单</a>
-                            </span>
-                                </c:if>
-                            </div>
-                        </article>
-                    </c:forEach>
-
-                    <!-- End Single Post -->
-
-                    <div class="next-prev clearfix">
-                        <a href="" class="prev-post">
-                            <i class="fa fa-angle-left fa-2x"></i>Previous Post
-                        </a>
-                        <a href="" class="next-post pull-right">
-                            Next Post<i class="fa fa-angle-right fa-2x"></i>
-                        </a>
+            <!-- first count item -->
+            <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInDown" data-wow-duration="500ms">
+                <div class="counters-item">
+                    <div>
+                        <span data-speed="3000" data-to="320">${userNumber}</span>
                     </div>
-                    <div class="author-about clearfix">
-                        <h4>About Jhon Doe</h4>
-                        <div class="post-author pull-left">
-                            <img src="/css/index/img/blog/avatar.png" alt="">
-                        </div>
-                        <div class="author-bio">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae modi quisquam
-                                laboriosam, expedita ea natus tempora unde sed sequi velit, quia veniam libero quos
-                                sunt.</p>
-                            <h5>Follow The Author</h5>
-                            <div class="social-profile">
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-facebook-square fa-2x"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter-square fa-2x"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-linkedin-square fa-2x"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
+                    <i class="fa fa-users fa-3x"></i>
+                    <h3>活跃用户</h3>
+                </div>
+            </div>
+            <!-- end first count item -->
 
+            <!-- second count item -->
+            <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInDown" data-wow-duration="500ms"
+                 data-wow-delay="200ms">
+                <div class="counters-item">
+                    <div>
+                        <span data-speed="3000" data-to="565">${demandTypeNumber}</span>
                     </div>
+                    <i class="fa fa-tags fa-3x"></i>
+                    <h3>类型总数</h3>
+                </div>
+            </div>
+            <!-- end second count item -->
 
-                    <div id="comments" class="comments-section">
-                        <h4>4 Comments</h4>
-                        <ol class="comment-list">
-                            <li id="comment-1">
-                                <div class="comment-wrap">
-                                    <div class="author-avatar pull-left">
-                                        <img src="img/blog/user.jpg" alt="">
-                                    </div>
-                                    <div class="author-comment">
-                                        <cite class="pull-left"><a href="#">Smithson</a></cite>
-                                        <a href="" class="replay pull-right">Replay</a>
-                                        <div style="clear:both"></div>
-                                        <div class="comment-meta">
-                                            <i class="fa fa-calendar"></i> 26 aug 2013 at 07:30 PM
-                                        </div>
-                                    </div>
-                                    <div class="comment-content">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, repellendus.
-                                            Culpa nam aut vel. Ab, excepturi minus, quasi debitis quaerat animi, enim
-                                            quod repellat minima dolores facere veniam quam quo!</p>
-                                    </div>
-                                </div>
-                                <ul>
-                                    <li id="comment-2">
-                                        <div class="comment-wrap">
-                                            <div class="author-avatar pull-left">
-                                                <img src="img/blog/user.jpg" alt="">
-                                            </div>
-                                            <div class="author-comment">
-                                                <cite class="pull-left"><a href="#">Smithson</a></cite>
-                                                <a href="" class="replay pull-right">Replay</a>
-                                                <div style="clear:both"></div>
-                                                <div class="comment-meta">
-                                                    <i class="fa fa-calendar"></i> 26 aug 2013 at 07:30 PM
-                                                </div>
-                                            </div>
-                                            <div class="comment-content">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non,
-                                                    repellendus. Culpa nam aut vel. Ab, excepturi minus, quasi debitis
-                                                    quaerat animi, enim quod repellat minima dolores facere veniam quam
-                                                    quo!</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li id="comment-3">
-                                        <div class="comment-wrap">
-                                            <div class="author-avatar pull-left">
-                                                <img src="img/blog/user.jpg" alt="">
-                                            </div>
-                                            <div class="author-comment">
-                                                <cite class="pull-left"><a href="#">Smithson</a></cite>
-                                                <a href="" class="replay pull-right">Replay</a>
-                                                <div style="clear:both"></div>
-                                                <div class="comment-meta">
-                                                    <i class="fa fa-calendar"></i> 26 aug 2013 at 07:30 PM
-                                                </div>
-                                            </div>
-                                            <div class="comment-content">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non,
-                                                    repellendus. Culpa nam aut vel. Ab, excepturi minus, quasi debitis
-                                                    quaerat animi, enim quod repellat minima dolores facere veniam quam
-                                                    quo!</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <div class="comment-wrap">
-                                    <div class="author-avatar pull-left">
-                                        <img src="img/blog/user.jpg" alt="">
-                                    </div>
-                                    <div class="author-comment">
-                                        <cite class="pull-left"><a href="#">Smithson</a></cite>
-                                        <a href="" class="replay pull-right">Replay</a>
-                                        <div style="clear:both"></div>
-                                        <div class="comment-meta">
-                                            <i class="fa fa-calendar"></i> 26 aug 2013 at 07:30 PM
-                                        </div>
-                                    </div>
-                                    <div class="comment-content">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, repellendus.
-                                            Culpa nam aut vel. Ab, excepturi minus, quasi debitis quaerat animi, enim
-                                            quod repellat minima dolores facere veniam quam quo!</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ol>
+            <!-- third count item -->
+            <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInDown" data-wow-duration="500ms"
+                 data-wow-delay="400ms">
+                <div class="counters-item">
+                    <div>
+                        <span data-speed="3000" data-to="95">${discussNumber}</span>
                     </div>
-
-                    <div class="comment-reply-form">
-                        <h3>Leave a Replay</h3>
-                        <form id="comment-form" method="post" action="#">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Name *" id="name" name="name"
-                                       required>
-                            </div>
-                            <!-- End .form-group -->
-                            <div class="form-group">
-                                <input type="email" class="form-control" placeholder="E-mail *" id="email" name="email"
-                                       required>
-                            </div>
-                            <!-- End .form-group -->
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Website" id="website"
-                                       name="website">
-                            </div>
-                            <!-- End .form-group -->
-                            <div class="form-group">
-                                <textarea class="form-control" placeholder="Message *" id="message" name="message"
-                                          rows="5" cols="5" required></textarea>
-                            </div>
-                            <!-- End .form-group -->
-                            <div class="form-group">
-                                <input type="submit" id="post-comment" value="Post Comment" class="btn btn-transparent">
-                            </div>
-                            <!-- End .form-group -->
-                        </form>
-                    </div>
-                    <!-- End Single Post -->
+                    <i class="fa fa-comments fa-3x"></i>
+                    <h3>评论总数</h3>
 
                 </div>
             </div>
+            <!-- end third count item -->
 
-            <!-- Widget Section -->
-            <jsp:include page="right.jsp"></jsp:include>
-            <!-- End Widget Section -->
+            <!-- fourth count item -->
+            <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInDown" data-wow-duration="500ms"
+                 data-wow-delay="600ms">
+                <div class="counters-item kill-margin-bottom">
+                    <div>
+                        <span data-speed="3000" data-to="2500">${demandNumber}</span>
+                    </div>
+                    <i class="fa fa-coffee fa-3x"></i>
+                    <h3>订单总数</h3>
+                </div>
+            </div>
+            <!-- end fourth count item -->
+
+        </div>        <!-- end row -->
+    </div>    <!-- end container -->
+</section>   <!-- end section -->
+
+
+<!-- Start Services Section
+==================================== -->
+
+<section id="services" class="bg-one">
+    <div class="container">
+        <div class="row">
+
+            <!-- section title -->
+            <div class="title text-center wow fadeIn" data-wow-duration="500ms">
+                <h2>Our <span class="color">Services</span></h2>
+                <div class="border"></div>
+            </div>
+            <!-- /section title -->
+
+            <!-- Single Service Item -->
+            <article class="col-md-4 col-sm-6 col-xs-12 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="200ms">
+                <div class="service-block text-center">
+                    <div class="service-icon text-center">
+                        <i class="fa fa-desktop fa-5x"></i>
+                    </div>
+                    <h3>网页端</h3>
+                </div>
+            </article>
+            <!-- End Single Service Item -->
+            <!-- Single Service Item -->
+            <article class="col-md-4 col-sm-6 col-xs-12 wow fadeInDown" data-wow-duration="500ms"
+                     data-wow-delay="400ms">
+                <div class="service-block text-center">
+                    <div class="service-icon text-center">
+                        <i class="fa fa-android fa-5x"></i>
+                    </div>
+                    <h3>手机端</h3>
+                </div>
+            </article>
+            <!-- End Single Service Item -->
+
+            <!-- Single Service Item -->
+            <article class="col-md-4 col-sm-6 col-xs-12 wow fadeInDown" data-wow-duration="500ms"
+                     data-wow-delay="600ms">
+                <div class="service-block text-center kill-margin-bottom">
+                    <div class="service-icon text-center">
+                        <i class="fa fa-link fa-5x"></i>
+                    </div>
+                    <h3>微信小程序</h3>
+                </div>
+            </article>
+            <!-- End Single Service Item -->
 
         </div>        <!-- End row -->
-    </div>       <!-- End container -->
-</section>    <!-- End Section -->
+    </div>    <!-- End container -->
+</section>   <!-- End section -->
 
 
-<!-- Start Footer Section
-========================================== -->
-<footer id="footer" class="bg-one">
+<!-- Start Portfolio Section
+=========================================== -->
+
+<!-- Start Team Skills
+=========================================== -->
+
+<section id="team-skills" class="parallax-section">
     <div class="container">
-        <div class="row wow fadeInUp" data-wow-duration="500ms">
-            <div class="col-lg-12">
+        <div class="row wow fadeInDown" data-wow-duration="500ms">
 
-                <!-- Footer Social Links -->
-                <div class="social-icon">
-                    <ul>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                        <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                    </ul>
+            <!-- section title -->
+            <div class="title text-center">
+                <h2>Our <span class="color">Skills</span></h2>
+                <div class="border"></div>
+            </div>
+            <!-- /section title -->
+            <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInDown" data-wow-duration="500ms"
+                 data-wow-delay="200ms">
+                <div class="counters-item">
+                    <i class="fa fa-tags fa-3x"></i>
+                    <h3>IntelliJ IDEA 2018</h3>
                 </div>
-                <!--/. End Footer Social Links -->
-
-                <!-- copyright -->
-                <div class="copyright text-center">
-                    <img src="img/logo-meghna.png" alt="Meghna"/> <br/>
-                    <p>Copyright &copy; 2017. All Rights Reserved.</p>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInDown" data-wow-duration="500ms"
+                 data-wow-delay="200ms">
+                <div class="counters-item">
+                    <i class="fa fa-tags fa-3x"></i>
+                    <h3>SpringMVC 4.3.3</h3>
                 </div>
-                <!-- /copyright -->
+            </div>
 
-            </div> <!-- end col lg 12 -->
-        </div> <!-- end row -->
-    </div> <!-- end container -->
-</footer> <!-- end footer -->
+            <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInDown" data-wow-duration="500ms"
+                 data-wow-delay="200ms">
+                <div class="counters-item">
+                    <i class="fa fa-tags fa-3x"></i>
+                    <h3>Spring 4.3.3</h3>
+                </div>
+            </div>
 
-<!-- Back to Top
-============================== -->
-<a href="#" id="scrollUp"><i class="fa fa-angle-up fa-2x"></i></a>
+            <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInDown" data-wow-duration="500ms"
+                 data-wow-delay="200ms">
+                <div class="counters-item">
+                    <i class="fa fa-tags fa-3x"></i>
+                    <h3>Hibernate 5.0.1</h3>
+                </div>
+            </div>
 
-<!-- end Footer Area
-========================================== -->
+            <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInDown" data-wow-duration="500ms"
+                 data-wow-delay="200ms">
+                <div class="counters-item">
+                    <i class="fa fa-tags fa-3x"></i>
+                    <h3>Shiro 1.4.0</h3>
+                </div>
+            </div>
 
-<!--
-Essential Scripts
-=====================================-->
+            <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInDown" data-wow-duration="500ms"
+                 data-wow-delay="200ms">
+                <div class="counters-item">
+                    <i class="fa fa-tags fa-3x"></i>
+                    <h3>Maven 中央仓库</h3>
+                </div>
+            </div>
 
+            <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInDown" data-wow-duration="500ms"
+                 data-wow-delay="200ms">
+                <div class="counters-item">
+                    <i class="fa fa-tags fa-3x"></i>
+                    <h3>Mysql</h3>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInDown" data-wow-duration="500ms"
+                 data-wow-delay="200ms">
+                <div class="counters-item">
+                    <i class="fa fa-tags fa-3x"></i>
+                    <h3>Jdk 1.8</h3>
+                </div>
+            </div>
+        </div>        <!-- End row -->
+    </div>    <!-- End container -->
+</section>   <!-- End section -->
+<!-- Start Our Team
+=========================================== -->
+
+<jsp:include page="down.jsp"></jsp:include>
 </body>
 </html>

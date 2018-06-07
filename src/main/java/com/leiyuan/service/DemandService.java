@@ -19,4 +19,10 @@ public interface DemandService {
     DemandUser getDemandUser(String demandId);
 
     List<Demand> queryByTypeId(String typeId);
+
+    void delete(String id);
+
+    void saveOrUpdate(Demand demand);
+
+    long count();
 }

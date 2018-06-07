@@ -14,4 +14,6 @@ public interface DemandTypeService {
     List<DemandType> queryAll();
 
     DemandType getById(String demandTypeId);
+
+    long count();
 }

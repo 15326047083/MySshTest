@@ -1,8 +1,13 @@
 package com.leiyuan.controller;
 
 import com.leiyuan.entity.Demand;
+import com.leiyuan.entity.User;
 import com.leiyuan.service.DemandService;
+import com.leiyuan.service.DiscussService;
+import com.leiyuan.service.UserService;
 import com.leiyuan.vo.DemandUser;
+import com.leiyuan.vo.DiscussUser;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -20,11 +26,18 @@ public class DemandController {
     @Autowired
     private DemandService demandService;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private DiscussService discussService;
+
     /**
      * 跳转
      *
      * @return 跳转至新增页面
      */
+    @RequiresRoles("user")
     @RequestMapping("/toSaveDemand")
     public String toSaveDemand() {
         return "/demand/new";
@@ -39,6 +52,7 @@ public class DemandController {
     @RequiresRoles("user")
     @RequestMapping(value = "/saveDemand", method = RequestMethod.POST)
     public String saveDemand(Demand demand) {
+        demand.setStartTime(new Date().toString());
         String demandId = demandService.save(demand);
         return "redirect:/demand/getDemandById/" + demandId;
 
@@ -50,14 +64,14 @@ public class DemandController {
      * @param demandId 需求id
      * @return 需求展示页面
      */
-    //@RequiresRoles("user")
-    @ResponseBody
+    @RequiresRoles("user")
     @RequestMapping("/getDemandById/{demandId}")
     public String getDemandById(@PathVariable("demandId") String demandId, Model model) {
         //Demand demand = demandService.get(demandId);
         //model.addAttribute("demand", demand);
         DemandUser demandUser = demandService.getDemandUser(demandId);
-        return demandUser.toString();
+        model.addAttribute("d", demandUser);
+        return "/demand/demand";
     }
 
     /**
@@ -71,6 +85,9 @@ public class DemandController {
     @RequestMapping("/takeDemand/{demandId}/{setUserId}")
     public String takeDemand(@PathVariable("demandId") String demandId, @PathVariable("setUserId") String setUserId) {
         demandService.takeDemand(demandId, setUserId);
+        if ("null".equals(setUserId)) {
+            return "redirect:/demand/gerDemandList/0";
+        }
         return "redirect:/demand/getDemandById/" + demandId;
     }
 
@@ -86,7 +103,7 @@ public class DemandController {
     public String getDemandList(@PathVariable("flag") int flag, Model model) {
         List<Demand> demandList = demandService.getDemandList(flag);
         model.addAttribute("demandList", demandList);
-        String title = "";
+        String title;
         if (flag == 0) {
             title = "全部需求列表";
         } else if (flag == 2) {
@@ -97,7 +114,7 @@ public class DemandController {
             title = "过期需求列表";
         }
         model.addAttribute("title", title);
-        return "index";
+        return "demand/list";
     }
 
     /**
@@ -113,7 +130,15 @@ public class DemandController {
     public String getMyDemandList(@PathVariable("userId") String userId, @PathVariable("flag") String flag, Model
             model) {
         List<Demand> list = demandService.getMyDemandList(userId, flag);
-        return "";
+        String title;
+        if ("get".equals(flag)) {
+            title = "我接受的需求订单";
+        } else {
+            title = "我发布的需求订单";
+        }
+        model.addAttribute("demandList", list);
+        model.addAttribute("title", title);
+        return "demand/list";
     }
 
     /**
@@ -129,5 +154,43 @@ public class DemandController {
         List<Demand> demandList = demandService.queryByTypeId(typeId);
         model.addAttribute("demandList", demandList);
         return demandList.toString();
+    }
+
+    /**
+     * 删除服务需求
+     *
+     * @param id     订单id
+     * @param userId 当前用户id
+     * @return 重定向至我发布的订单
+     */
+    @RequiresRoles("user")
+    @RequestMapping("/delete/{userId}/{id}")
+    public String delete(@PathVariable("id") String id, @PathVariable("userId") String userId) {
+        demandService.delete(id);
+        return "redirect:/demand/getMyDemandList/" + userId + "/set";
+    }
+
+    /**
+     * 需求商确认订单已完成
+     *
+     * @param id     订单ID
+     * @param userId 当前用户ID
+     * @return 跳转至服务商评论页面
+     */
+    @RequiresRoles("user")
+    @RequestMapping("/finishDemand/{id}/{userId}")
+    public String finishDemand(@PathVariable("id") String id, @PathVariable("userId") String userId, Model model) {
+
+        Demand demand = demandService.get(id);
+        if (demand.getFlag() != 2)
+            model.addAttribute("flag", 1);
+        demand.setFlag(2);
+        demandService.saveOrUpdate(demand);
+        User u = userService.get(demand.getGetUserId());
+        List<DiscussUser> discussUserList = discussService.getDiscussList(demand.getGetUserId());
+        model.addAttribute("discussNum", discussService.countByGetUserId(demand.getGetUserId()));
+        model.addAttribute("discussUserList", discussUserList);
+        model.addAttribute("getDiscussUser", u);
+        return "/user/discuss";
     }
 }

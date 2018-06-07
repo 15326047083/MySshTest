@@ -28,6 +28,10 @@
     <form action="/user/login" method="post">
         <input type="text" name="num" class="username" placeholder="请输入您的学号！">
         <input type="password" name="password" class="password" placeholder="请输入您的密码！">
+        <a href="/user/toNewUser" style="color: blue;">立即注册</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a style="color: blue;">忘记密码</a>
         <button type="submit" class="submit_button">登录</button>
     </form>
 </div>

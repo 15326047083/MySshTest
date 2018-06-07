@@ -1,7 +1,9 @@
 package com.leiyuan.controller;
 
 import com.leiyuan.entity.Discuss;
+import com.leiyuan.entity.User;
 import com.leiyuan.service.DiscussService;
+import com.leiyuan.service.UserService;
 import com.leiyuan.vo.DiscussUser;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ import java.util.List;
 public class DiscussController {
     @Autowired
     private DiscussService discussService;
+    @Autowired
+    private UserService userService;
 
     /**
      * 新增评论
@@ -34,6 +38,16 @@ public class DiscussController {
     public String saveDiscuss(Discuss discuss) {
         discuss.setDate(new Date().toString());
         discussService.save(discuss);
+        List<Long> longs = discussService.getStarListByGetUserId(discuss.getGetUserId());
+        int Mean = 0;
+        int sum = 0;
+        for (int i = 0; i < longs.size(); i++) {
+            sum = sum + Integer.parseInt(longs.get(i) + "");
+        }
+        Mean = sum / longs.size();
+        User user = userService.get(discuss.getGetUserId());
+        user.setStar(Mean);
+        userService.saveOrUpdate(user);
         return "redirect:/discuss/getDiscussListByGetUserId/" + discuss.getGetUserId();
     }
 
@@ -48,9 +62,12 @@ public class DiscussController {
     @RequiresRoles("user")
     @RequestMapping("/getDiscussListByGetUserId/{getUserId}")
     public String getDiscussListByGetUserId(@PathVariable("getUserId") String getUserId, Model model) {
+        User u = userService.get(getUserId);
         List<DiscussUser> discussUserList = discussService.getDiscussList(getUserId);
+        model.addAttribute("discussNum", discussService.countByGetUserId(getUserId));
         model.addAttribute("discussUserList", discussUserList);
-        return discussUserList.toString();
+        model.addAttribute("getDiscussUser", u);
+        return "/user/discuss";
     }
 
     /**
@@ -75,6 +92,7 @@ public class DiscussController {
     @RequestMapping("/getDiscussList")
     public String getDiscussList() {
         List<DiscussUser> discussUserList = discussService.queryAllList();
-        return "";
+        return "/user/discuss";
     }
+
 }

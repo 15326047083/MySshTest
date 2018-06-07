@@ -133,5 +133,6 @@ End Fixed Navigation
         </div>
     </div>
 </section>
+<jsp:include page="../down.jsp"></jsp:include>
 </body>
 </html>
