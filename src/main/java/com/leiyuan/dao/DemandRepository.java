@@ -9,4 +9,6 @@ public interface DemandRepository extends CommonRepository<Demand> {
     DemandUser getDemandUser(String demandId);
 
     List<Demand> queryByTypeId(String typeId);
+
+    List<Demand> searchByInfo(String info);
 }

@@ -61,7 +61,7 @@ public class DemandServiceImpl implements DemandService {
         }
         //查询以过期需求订单
         else if (flag == 4) {
-            Sql = "where endLongTime<" + new Date().getTime();
+            Sql = "where flag<>2 and endLongTime<" + new Date().getTime();
         } else {
             Sql = "where flag=" + flag;
         }
@@ -109,6 +109,11 @@ public class DemandServiceImpl implements DemandService {
     @Override
     public long count() {
         return demandRepository.count();
+    }
+
+    @Override
+    public List<Demand> searchByInfo(String info) {
+        return demandRepository.searchByInfo(info);
     }
 
 }

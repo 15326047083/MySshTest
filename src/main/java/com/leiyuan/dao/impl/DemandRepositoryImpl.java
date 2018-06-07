@@ -37,4 +37,11 @@ public class DemandRepositoryImpl extends CommonRepositoryImpl<Demand> implement
     public List<Demand> queryByTypeId(String typeId) {
         return (List<Demand>) getCurrentSession().createQuery("from Demand where typeId='" + typeId + "'").list();
     }
+
+    @Override
+    @Transactional
+    public List<Demand> searchByInfo(String info) {
+        return (List<Demand>) getCurrentSession().createQuery("from Demand where info like '%" + info +
+                "%' or bounty like '%" + info + "%'").list();
+    }
 }

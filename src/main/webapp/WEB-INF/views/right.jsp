@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div id="right-sidebar" class="col-md-4 col-sm-4">
 
@@ -8,9 +9,9 @@
             <h3>Search</h3>
         </div>
         <div class="widget-content">
-            <form action="#" id="search-form" method="get" role="search">
-                <input type="text" class="form-control" placeholder="Search..." autocomplete="on"
-                       name="seach">
+            <form action="/demand/searchByInfo" id="search-form" method="get" role="search">
+                <input type="text" class="form-control" placeholder="请输入关键字，或佣金期望值" autocomplete="on"
+                       name="info">
                 <button type="submit" title="Search" id="search-submit">
                     <i class="fa fa-search"></i>
                 </button>
@@ -28,9 +29,12 @@
             <ul class="categories">
                 <li><i class="fa fa-plus"></i> <a href="/demand/gerDemandList/0">正常状态</a></li>
                 <li><i class="fa fa-plus"></i> <a href="/demand/gerDemandList/1">进行中</a></li>
+                <li><i class="fa fa-plus"></i> <a href="/demand/gerDemandList/2">已完成案例</a></li>
                 <li><i class="fa fa-plus"></i> <a href="/demand/gerDemandList/4">已过期</a></li>
-                <li><i class="fa fa-plus"></i> <a href="/demand/getMyDemandList/${userSession.id}/set">我发布的</a></li>
-                <li><i class="fa fa-plus"></i> <a href="/demand/getMyDemandList/${userSession.id}/get">我接受的</a></li>
+                <shiro:hasRole name="user">
+                    <li><i class="fa fa-plus"></i> <a href="/demand/getMyDemandList/${userSession.id}/set">我发布的</a></li>
+                    <li><i class="fa fa-plus"></i> <a href="/demand/getMyDemandList/${userSession.id}/get">我接受的</a></li>
+                </shiro:hasRole>
             </ul>
         </div>
     </aside>
@@ -43,7 +47,7 @@
         </div>
         <div class="widget-content">
             <c:forEach var="type" items="${typeList}">
-                <a class="tag" href="#">${type.name}</a>
+                <a class="tag" href="/demand/queryByTypeId/${type.id}">${type.name}</a>
             </c:forEach>
         </div>
     </aside>

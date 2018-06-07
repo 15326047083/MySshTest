@@ -1,8 +1,10 @@
 package com.leiyuan.controller;
 
 import com.leiyuan.entity.Demand;
+import com.leiyuan.entity.DemandType;
 import com.leiyuan.entity.User;
 import com.leiyuan.service.DemandService;
+import com.leiyuan.service.DemandTypeService;
 import com.leiyuan.service.DiscussService;
 import com.leiyuan.service.UserService;
 import com.leiyuan.vo.DemandUser;
@@ -12,10 +14,7 @@ import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -31,6 +30,9 @@ public class DemandController {
 
     @Autowired
     private DiscussService discussService;
+
+    @Autowired
+    private DemandTypeService demandTypeService;
 
     /**
      * 跳转
@@ -98,7 +100,6 @@ public class DemandController {
      * @param model 想页面传递列表信息
      * @return 跳转至列表展示页面
      */
-    @RequiresRoles("user")
     @RequestMapping("/gerDemandList/{flag}")
     public String getDemandList(@PathVariable("flag") int flag, Model model) {
         List<Demand> demandList = demandService.getDemandList(flag);
@@ -114,7 +115,7 @@ public class DemandController {
             title = "过期需求列表";
         }
         model.addAttribute("title", title);
-        return "demand/list";
+        return "/demand/list";
     }
 
     /**
@@ -138,7 +139,7 @@ public class DemandController {
         }
         model.addAttribute("demandList", list);
         model.addAttribute("title", title);
-        return "demand/list";
+        return "/demand/list";
     }
 
     /**
@@ -148,12 +149,13 @@ public class DemandController {
      * @param model  想页面传递获取需求列表
      * @return 列表展示页面
      */
-    //@ResponseBody
     @RequestMapping("/queryByTypeId/{typeId}")
     public String queryByTypeId(@PathVariable("typeId") String typeId, Model model) {
+        DemandType demandType = demandTypeService.getById(typeId);
         List<Demand> demandList = demandService.queryByTypeId(typeId);
         model.addAttribute("demandList", demandList);
-        return demandList.toString();
+        model.addAttribute("title", demandType.getName() + "类别下的订单");
+        return "/demand/list";
     }
 
     /**
@@ -192,5 +194,21 @@ public class DemandController {
         model.addAttribute("discussUserList", discussUserList);
         model.addAttribute("getDiscussUser", u);
         return "/user/discuss";
+    }
+
+    /**
+     * 模糊查询
+     *
+     * @param info  查询内容
+     * @param model 传递结果集
+     * @return 展示页面
+     */
+    @RequestMapping("/searchByInfo")
+    public String searchByInfo(@RequestParam("info") String info, Model model) {
+        List<Demand> demandList = demandService.searchByInfo(info);
+        String title = "搜索结果";
+        model.addAttribute("title", title);
+        model.addAttribute("demandList", demandList);
+        return "/demand/list";
     }
 }

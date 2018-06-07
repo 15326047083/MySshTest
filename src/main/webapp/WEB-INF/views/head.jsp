@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
@@ -65,11 +66,14 @@
                 <li><a href="/user/toIndex">首页</a></li>
                 <li><a href="/demand/gerDemandList/0">服务商城</a></li>
                 <li><a href="/demand/toSaveDemand">发布服务需求</a></li>
-                <li><a href="index.html#our-team">Team</a></li>
-                <li><a href="index.html#pricing">Pricing</a></li>
-                <li><a href="index.html#showcase">Portfolio</a></li>
-                <li><a href="index.html#blog">Blog</a></li>
-                <li><a href="index.html#contact-us">Contact</a></li>
+                <shiro:notAuthenticated>
+                    <li><a href="/user/toNewUser">立即注册成为会员</a></li>
+                    <li><a href="/user/toLogin">登陆</a></li>
+                </shiro:notAuthenticated>
+                <shiro:authenticated>
+                    <li><a href="/discuss/getDiscussListByGetUserId/${userSession.id}">欢迎您！${userSession.name}</a></li>
+                    <li><a href="/user/logOut">退出登陆</a></li>
+                </shiro:authenticated>
             </ul>
 
         </nav><!-- /.navbar-collapse -->

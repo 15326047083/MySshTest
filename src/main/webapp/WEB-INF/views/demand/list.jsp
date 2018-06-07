@@ -75,6 +75,13 @@ End Fixed Navigation
                                     <c:when test="${d.flag==0}">
                                         <span class="post-tags"><i class="fa fa-gift"></i>等待服务商接单</span>
                                     </c:when>
+                                    <c:when test="${d.flag==2}">
+                                        <span class="post-tags"><i class="fa fa-gift"></i>
+                                            <a href="/discuss/getDiscussListByGetUserId/${d.getUserId}">
+                                                查看服务商评价
+                                            </a>
+                                        </span>
+                                    </c:when>
                                     <c:when test="${d.flag==2&&userSession.id==d.setUserId}">
                                         <span class="post-tags"><i class="fa fa-gift"></i>
                                             <a href="/demand/finishDemand/${d.id}/${userSession.id}">

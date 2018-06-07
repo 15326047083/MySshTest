@@ -67,11 +67,16 @@ public class UserController {
         } catch (Exception e) {
             return "/user/login";
         }
-        List<DemandType> demandTypeList = demandTypeService.queryAll();
         user = userService.getByNum(user.getNum());
         HttpSession session = request.getSession();
         session.setAttribute("userSession", user);
-        session.setAttribute("typeList", demandTypeList);
+        return "redirect:/user/toIndex";
+    }
+
+    @RequestMapping("/logOut")
+    public String logOut() {
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
         return "redirect:/user/toIndex";
     }
 
@@ -117,11 +122,9 @@ public class UserController {
         } catch (Exception e) {
             return e.getMessage();
         }
-        List<DemandType> demandTypeList = demandTypeService.queryAll();
         user = userService.getByNum(user.getNum());
         HttpSession session = request.getSession();
         session.setAttribute("userSession", user);
-        session.setAttribute("typeList", demandTypeList);
         return "redirect:/user/toIndex";
     }
 
@@ -195,13 +198,16 @@ public class UserController {
     }
 
     @RequestMapping("/toIndex")
-    public String toIndex(Model model) {
+    public String toIndex(Model model, HttpServletRequest request) {
         long userNumber = userService.count();
         long demandNumber = demandService.count();
         model.addAttribute("userNumber", userNumber);
         model.addAttribute("demandNumber", demandNumber);
         model.addAttribute("demandTypeNumber", demandTypeService.count());
         model.addAttribute("discussNumber", discussService.count());
+        List<DemandType> demandTypeList = demandTypeService.queryAll();
+        HttpSession session = request.getSession();
+        session.setAttribute("typeList", demandTypeList);
         return "index";
     }
 

@@ -25,4 +25,6 @@ public interface DemandService {
     void saveOrUpdate(Demand demand);
 
     long count();
+
+    List<Demand> searchByInfo(String info);
 }
