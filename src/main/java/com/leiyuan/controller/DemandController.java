@@ -211,4 +211,39 @@ public class DemandController {
         model.addAttribute("demandList", demandList);
         return "/demand/list";
     }
+
+    /**
+     * 需求管理
+     *
+     * @param model 传递结果集
+     * @return 结果展示
+     */
+    @RequiresRoles("admin")
+    @RequestMapping("/adminGetAllList")
+    public String adminGetAllList(Model model) {
+        List<Demand> demandList = demandService.queryAll();
+        model.addAttribute("demandList", demandList);
+        return "/admin/demandlist";
+    }
+
+    /**
+     * 需求删除
+     *
+     * @param id 需求ID
+     * @return 重定向至需求管理
+     */
+    @RequiresRoles("admin")
+    @RequestMapping(value = "/adminDelete/{id}")
+    public String adminDelete(@PathVariable("id") String id) {
+        demandService.delete(id);
+        return "redirect:/demand/adminGetAllList";
+    }
+
+    @RequiresRoles("admin")
+    @RequestMapping("/adminGet/{demandId}")
+    public String adminGet(@PathVariable("demandId") String demandId, Model model) {
+        DemandUser demandUser = demandService.getDemandUser(demandId);
+        model.addAttribute("d", demandUser);
+        return "/admin/demand";
+    }
 }

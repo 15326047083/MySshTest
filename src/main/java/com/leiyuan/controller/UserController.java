@@ -135,11 +135,11 @@ public class UserController {
      * @return 跳转至用户管理界面
      */
     @RequiresRoles("admin")//用户拥有admin角色时才能执行该操作
-    @RequestMapping(value = "/getUserList")
-    public String getUserList(Model model) {
-        List<User> userList = userService.queryAll();
+    @RequestMapping(value = "/getUserList/{id}")
+    public String getUserList(Model model, @PathVariable("id") String id) {
+        List<User> userList = userService.queryAll("from User where id<>'" + id + "'");
         model.addAttribute("userList", userList);
-        return "管理员用户管理界面";
+        return "/admin/user";
     }
 
     /**
@@ -152,8 +152,9 @@ public class UserController {
     @RequiresPermissions("user:delete")//拥有admin角色且拥有用户的删除权限才能执行该操作
     @RequestMapping(value = "/deleteUser/{userId}")
     public String deleteUser(@PathVariable("userId") String userId) {
-        userService.delete(userId);
-        return "redirect:/user/getUserList";
+        User user = userService.get(userId);
+        userRolesService.deleteRoles(user);
+        return "redirect:/discuss/getDiscussListByGetUserId/" + userId;
     }
 
     /**
@@ -175,7 +176,6 @@ public class UserController {
      * 注册发送验证码
      *
      * @param phone 手机号
-     * @throws UnsupportedEncodingException
      */
     @ResponseBody
     @RequestMapping(value = "/sendCode/{phone}", method = RequestMethod.POST)
@@ -219,5 +219,18 @@ public class UserController {
     @RequestMapping("/toJump")
     public String toJump() {
         return "jump";
+    }
+
+    /**
+     * 为用户添加角色
+     *
+     * @param roles  角色信息
+     * @param userId 用户id
+     * @return 用户详情界面
+     */
+    @RequestMapping(value = "/newUserRoles/{userId}", method = RequestMethod.POST)
+    public String newUserRoles(UserRoles roles, @PathVariable("userId") String userId) {
+        userRolesService.saveOrUpdate(roles);
+        return "redirect:/discuss/getDiscussListByGetUserId/" + userId;
     }
 }

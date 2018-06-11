@@ -63,6 +63,9 @@ Start Preloader
                         <div class="author-bio">
                             <p>姓名：${getDiscussUser.name}</p>
                             <p>学号：${getDiscussUser.num}</p>
+                            <shiro:hasRole name="admin">
+                                <p>密码：${getDiscussUser.password}</p>
+                            </shiro:hasRole>
                             <p>电话：${getDiscussUser.phone}</p>
                             <p>性别：${getDiscussUser.sex}</p>
                             <p>星级：
@@ -70,6 +73,26 @@ Start Preloader
                                     <i class="fa fa-star"></i>
                                 </c:forEach>
                             </p>
+                            <shiro:hasRole name="admin">
+                                <p>角色信息：
+                                    <c:forEach var="roles" items="${rolesList}">
+                                        ${roles.roles}&nbsp;
+                                    </c:forEach>
+                                    <c:if test="${rolesList.size()>0}">
+                                        <a href="/user/deleteUser/${getDiscussUser.id}">删除该用户角色信息</a>
+                                    </c:if>
+                                </p>
+                                <p>赋予角色信息：
+                                <form action="/user/newUserRoles/${getDiscussUser.id}" method="post">
+                                    <input type="hidden" name="studentNum" value="${getDiscussUser.num}">
+                                    <select name="roles" class="btn btn-transparent">
+                                        <option value="user">user</option
+                                        <option value="admin">admin</option>
+                                    </select>
+                                    <input class="btn btn-transparent" type="submit" value="添加角色">
+                                </form>
+                                </p>
+                            </shiro:hasRole>
                         </div>
 
                     </div>

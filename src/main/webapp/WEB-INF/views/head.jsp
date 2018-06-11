@@ -72,6 +72,14 @@
                 </shiro:notAuthenticated>
                 <shiro:authenticated>
                     <li><a href="/discuss/getDiscussListByGetUserId/${userSession.id}">欢迎您！${userSession.name}</a></li>
+                    <shiro:hasRole name="admin">
+                        <li>
+                            <a href="/demand/adminGetAllList">需求管理</a>
+                        </li>
+                        <li>
+                            <a href="/user/getUserList/${userSession.id}">用户管理</a>
+                        </li>
+                    </shiro:hasRole>
                     <li><a href="/user/logOut">退出登陆</a></li>
                 </shiro:authenticated>
             </ul>

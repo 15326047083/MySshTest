@@ -32,7 +32,7 @@ Start Preloader
 ==================================== -->
 <div id="loading-mask">
     <div class="loading-img">
-        <img alt="Meghna Preloader" src="img/preloader.gif"/>
+        <img alt="Meghna Preloader" src="/css/index/img/preloader.gif"/>
     </div>
 </div>
 <!--

@@ -116,4 +116,9 @@ public class DemandServiceImpl implements DemandService {
         return demandRepository.searchByInfo(info);
     }
 
+    @Override
+    public List<Demand> queryAll() {
+        return demandRepository.queryAll();
+    }
+
 }

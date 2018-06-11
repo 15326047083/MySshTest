@@ -2,7 +2,9 @@ package com.leiyuan.controller;
 
 import com.leiyuan.entity.Discuss;
 import com.leiyuan.entity.User;
+import com.leiyuan.entity.UserRoles;
 import com.leiyuan.service.DiscussService;
+import com.leiyuan.service.UserRolesService;
 import com.leiyuan.service.UserService;
 import com.leiyuan.vo.DiscussUser;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -25,6 +27,8 @@ public class DiscussController {
     private DiscussService discussService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRolesService rolesService;
 
     /**
      * 新增评论
@@ -64,9 +68,11 @@ public class DiscussController {
     public String getDiscussListByGetUserId(@PathVariable("getUserId") String getUserId, Model model) {
         User u = userService.get(getUserId);
         List<DiscussUser> discussUserList = discussService.getDiscussList(getUserId);
+        List<UserRoles> rolesList = rolesService.queryByStudentNum(u.getNum());
         model.addAttribute("discussNum", discussService.countByGetUserId(getUserId));
         model.addAttribute("discussUserList", discussUserList);
         model.addAttribute("getDiscussUser", u);
+        model.addAttribute("rolesList", rolesList);
         return "/user/discuss";
     }
 

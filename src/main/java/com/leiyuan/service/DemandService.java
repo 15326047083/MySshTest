@@ -27,4 +27,7 @@ public interface DemandService {
     long count();
 
     List<Demand> searchByInfo(String info);
+
+    List<Demand> queryAll();
+
 }

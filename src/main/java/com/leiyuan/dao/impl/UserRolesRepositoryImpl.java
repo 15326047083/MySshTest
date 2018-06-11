@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.leiyuan.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,11 @@ public class UserRolesRepositoryImpl extends CommonRepositoryImpl<UserRoles> imp
         // TODO Auto-generated method stub
         return (List<String>) getCurrentSession()
                 .createQuery("select roles from UserRoles where studentNum='" + num + "'").list();
+    }
+
+    @Override
+    @Transactional
+    public void deleteRoles(User user) {
+        getCurrentSession().createQuery("delete from UserRoles where studentNum=" + user.getNum()).executeUpdate();
     }
 }
