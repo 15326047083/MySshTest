@@ -8,7 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -17,25 +21,47 @@ public class DemandTypeController {
     @Autowired
     private DemandTypeService demandTypeService;
 
+    /**
+     * 新增或修改类型信息
+     *
+     * @param demandType 类型信息
+     * @return 重定向至列表
+     */
     @RequiresRoles("admin")
-    @RequestMapping(value = "/saveOrUpdateDemandType")
+    @RequestMapping(value = "/saveOrUpdateDemandType", method = RequestMethod.POST)
     public String saveOrUpdateDemandType(DemandType demandType) {
+        demandType.setBuildTime(new Date().toString());
+        demandType.setDemandNum(0);
         demandTypeService.saveOrUpdate(demandType);
-        return "";
+        return "redirect:/demandType/queryAllDemandType";
     }
 
+    /**
+     * 删除类型信息
+     *
+     * @param demandTypeId 类型ID
+     * @return 重定向至列表
+     */
     @RequiresRoles("admin")
     @RequestMapping("/deleteDemandType/{demandTypeId}")
     public String deleteDemandType(@PathVariable("demandTypeId") String demandTypeId) {
         demandTypeService.delete(demandTypeId);
-        return "";
+        return "redirect:/demandType/queryAllDemandType";
     }
 
+    /**
+     * 获取列表
+     *
+     * @param request 更新session中的值
+     * @return 列表展示页面
+     */
+    @RequiresRoles("admin")
     @RequestMapping("/queryAllDemandType")
-    public String queryAllDemandType(Model model) {
+    public String queryAllDemandType(HttpServletRequest request) {
         List<DemandType> demandTypeList = demandTypeService.queryAll();
-        model.addAttribute("demandTypeList", demandTypeList);
-        return "";
+        HttpSession session = request.getSession();
+        session.setAttribute("typeList", demandTypeList);
+        return "/admin/typelist";
     }
 
     @RequiresRoles("admin")

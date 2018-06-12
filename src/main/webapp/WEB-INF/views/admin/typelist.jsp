@@ -43,7 +43,7 @@ End Fixed Navigation
                     <i class="fa fa-book fa-4x"></i>
                 </div>
                 <div class="blog-title">
-                    <h1>需求管理(${demandList.size()})</h1>
+                    <h1>类型管理(${typeList.size()})</h1>
                 </div>
 
             </div>     <!-- End col-lg-12 -->
@@ -62,22 +62,22 @@ End Fixed Navigation
                 <div class="post-item">
 
                     <!-- Single Post -->
-                    <c:forEach var="d" items="${demandList}">
+                    <c:forEach var="d" items="${typeList}">
                         <article class="entry wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
                             <div class="post-excerpt">
-                                <h3>佣金：${d.bounty} 元人民币</h3>
-                                    ${d.info}
+                                <h3>名称：${d.name}</h3>
+                                <h4>简介：${d.info}</h4>
                             </div>
                             <div class="post-meta">
                                 <span class="post-date">
-                                    <i class="fa fa-calendar"></i>${d.endTime}
+                                    <i class="fa fa-calendar"></i>创建时间：${d.buildTime}
                                 </span>
                                 <shiro:hasRole name="admin">
-                                <span class="post-tags"><i class="fa fa-arrow-circle-left"></i><a
-                                        href="/demand/adminDelete/${d.id}">删除订单</a>
+                                <span class="post-tags"><i class="fa fa-arrow-circle-right"></i><a
+                                        href="/demand/queryByTypeId/${d.id}">查看订单</a>
                                 </span>
                                     <span class="post-tags"><i class="fa fa-arrow-circle-left"></i><a
-                                            href="/demand/adminGet/${d.id}">查看详情</a>
+                                            href="/demandType/deleteDemandType/${d.id}">删除</a>
                                 </span>
                                 </shiro:hasRole>
                             </div>

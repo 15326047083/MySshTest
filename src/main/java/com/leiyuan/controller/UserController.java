@@ -110,6 +110,7 @@ public class UserController {
      */
     @RequestMapping(value = "/newUser", method = RequestMethod.POST)
     public String newUser(User user, HttpServletRequest request) {
+        user.setStar(5);
         userService.saveOrUpdate(user);
         //赋予该账号角色信息
         UserRoles userRoles = new UserRoles(user.getNum(), "user");

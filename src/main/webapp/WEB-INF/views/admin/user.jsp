@@ -45,7 +45,7 @@ Start Preloader
             <div id="blog-posts" class="col-md-8 col-sm-8">
                 <div class="post-item">
                     <div id="comments" class="comments-section">
-                        <h4>共多少个用户</h4>
+                        <h4>共${userList.size()}个用户</h4>
                         <ol class="comment-list">
                             <li id="comment-1">
                                 <c:forEach var="discussUser" items="${userList}">

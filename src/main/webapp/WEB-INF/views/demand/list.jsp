@@ -42,7 +42,7 @@ End Fixed Navigation
                     <i class="fa fa-book fa-4x"></i>
                 </div>
                 <div class="blog-title">
-                    <h1>${title}</h1>
+                    <h1>${title}(${demandList.size()})</h1>
                 </div>
 
             </div>     <!-- End col-lg-12 -->

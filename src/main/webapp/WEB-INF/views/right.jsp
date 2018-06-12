@@ -43,9 +43,55 @@
     <!-- Single Widget -->
     <aside class="widget wow fadeInDown">
         <div class="widget-title">
-            <h3>按分类查询</h3>
+            <h3>按分类查询<shiro:hasRole name="admin"><a href="/demandType/queryAllDemandType">(查看全部)</a></shiro:hasRole>
+            </h3>
         </div>
         <div class="widget-content">
+            <!-- 打开弹窗按钮 -->
+            <shiro:hasRole name="admin">
+                <button class="tag" id="myBtn">添加分类</button>
+            </shiro:hasRole>
+            <!-- 弹窗 -->
+            <div id="myModal" class="modal">
+                <!-- 弹窗内容 -->
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div align="center">
+                        <form action="/demandType/saveOrUpdateDemandType" method="post">
+                            请输入分类名称：<input type="text" name="name"><br>
+                            请输入分类简介：<input type="text" name="info"><br>
+                            <input class="tag" type="submit" value="添加分类">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <script>
+                // 获取弹窗
+                var modal = document.getElementById('myModal');
+
+                // 打开弹窗的按钮对象
+                var btn = document.getElementById("myBtn");
+
+                // 获取 <span> 元素，用于关闭弹窗
+                var span = document.querySelector('.close');
+
+                // 点击按钮打开弹窗
+                btn.onclick = function () {
+                    modal.style.display = "block";
+                }
+
+                // 点击 <span> (x), 关闭弹窗
+                span.onclick = function () {
+                    modal.style.display = "none";
+                }
+
+                // 在用户点击其他地方时，关闭弹窗
+                window.onclick = function (event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
+            </script>
             <c:forEach var="type" items="${typeList}">
                 <a class="tag" href="/demand/queryByTypeId/${type.id}">${type.name}</a>
             </c:forEach>

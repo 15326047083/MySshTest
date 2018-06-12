@@ -86,7 +86,7 @@ Start Preloader
                                 <form action="/user/newUserRoles/${getDiscussUser.id}" method="post">
                                     <input type="hidden" name="studentNum" value="${getDiscussUser.num}">
                                     <select name="roles" class="btn btn-transparent">
-                                        <option value="user">user</option
+                                        <option value="user">user</option>
                                         <option value="admin">admin</option>
                                     </select>
                                     <input class="btn btn-transparent" type="submit" value="添加角色">

@@ -35,13 +35,14 @@ public class DemandRepositoryImpl extends CommonRepositoryImpl<Demand> implement
     @Override
     @Transactional
     public List<Demand> queryByTypeId(String typeId) {
-        return (List<Demand>) getCurrentSession().createQuery("from Demand where typeId='" + typeId + "'").list();
+        return (List<Demand>) getCurrentSession().createQuery("from Demand where typeId='" + typeId + "' order by " +
+                "endLongTime").list();
     }
 
     @Override
     @Transactional
     public List<Demand> searchByInfo(String info) {
         return (List<Demand>) getCurrentSession().createQuery("from Demand where info like '%" + info +
-                "%' or bounty like '%" + info + "%'").list();
+                "%' or bounty like '%" + info + "%' order by endLongTime").list();
     }
 }

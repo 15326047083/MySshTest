@@ -65,7 +65,7 @@ public class DemandServiceImpl implements DemandService {
         } else {
             Sql = "where flag=" + flag;
         }
-        String sql = "from Demand " + Sql;
+        String sql = "from Demand " + Sql + " order by endLongTime";
         List<Demand> list = demandRepository.queryAll(sql);
         if (flag == 4) {
             for (int i = 0; i < list.size(); i++) {
@@ -79,9 +79,9 @@ public class DemandServiceImpl implements DemandService {
     public List<Demand> getMyDemandList(String userId, String flag) {
         String sql = "";
         if ("set".equals(flag)) {
-            sql = "from Demand where setUserId='" + userId + "'";
+            sql = "from Demand where setUserId='" + userId + "' order by endLongTime";
         } else if ("get".equals(flag)) {
-            sql = "from Demand where getUserId='" + userId + "'";
+            sql = "from Demand where getUserId='" + userId + "' order by endLongTime";
         }
         return demandRepository.queryAll(sql);
     }
@@ -118,7 +118,7 @@ public class DemandServiceImpl implements DemandService {
 
     @Override
     public List<Demand> queryAll() {
-        return demandRepository.queryAll();
+        return demandRepository.queryAll("from Demand order by endLongTime");
     }
 
 }
