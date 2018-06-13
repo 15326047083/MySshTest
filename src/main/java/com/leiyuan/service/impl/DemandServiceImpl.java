@@ -1,7 +1,9 @@
 package com.leiyuan.service.impl;
 
 import com.leiyuan.dao.DemandRepository;
+import com.leiyuan.dao.DemandTypeRepository;
 import com.leiyuan.entity.Demand;
+import com.leiyuan.entity.DemandType;
 import com.leiyuan.service.DemandService;
 import com.leiyuan.vo.DemandUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import java.util.List;
 public class DemandServiceImpl implements DemandService {
     @Autowired
     private DemandRepository demandRepository;
+    @Autowired
+    private DemandTypeRepository demandTypeRepository;
 
     @Override
     public String save(Demand demand) {
@@ -31,6 +35,12 @@ public class DemandServiceImpl implements DemandService {
         }
         //将日期转为时间戳类型封装至实体类
         demand.setEndLongTime(date.getTime());
+        /**
+         * 更新类型下帖子数量
+         */
+        DemandType demandType = demandTypeRepository.get(demand.getTypeId());
+        demandType.setDemandNum(demandType.getDemandNum() + 1);
+        demandTypeRepository.saveOrUpdate(demandType);
         return demandRepository.save(demand);
     }
 
@@ -98,6 +108,10 @@ public class DemandServiceImpl implements DemandService {
 
     @Override
     public void delete(String id) {
+        Demand demand = demandRepository.get(id);
+        DemandType demandType = demandTypeRepository.get(demand.getTypeId());
+        demandType.setDemandNum(demandType.getDemandNum() - 1);
+        demandTypeRepository.saveOrUpdate(demandType);
         demandRepository.delete(id);
     }
 

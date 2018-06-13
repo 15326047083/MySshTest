@@ -56,7 +56,17 @@ Start Preloader
                 <div class="post-item">
 
                     <div class="author-about clearfix">
-                        <h4>关于${getDiscussUser.name}</h4>
+                        <script>
+                            function showChange() {
+                                document.getElementById("change").style.display = "block";
+                            }
+                        </script>
+                        <h4>
+                            关于${getDiscussUser.name}
+                            <c:if test="${userSession.id==getDiscussUser.id}">
+                                <a onclick="showChange()">（修改个人信息）</a>
+                            </c:if>
+                        </h4>
                         <div class="post-author pull-left">
                             <img src="/css/index/img/blog/avatar.png" alt="">
                         </div>
@@ -95,6 +105,32 @@ Start Preloader
                             </shiro:hasRole>
                         </div>
 
+                    </div>
+                    <div class="author-about clearfix" style="display: none;" id="change">
+                        <form action="" method="post">
+                            <h4>修改信息</h4>
+                            <div class="author-bio">
+                                <input type="hidden" name="id" value="${getDiscussUser.id}">
+                                <p>姓名：<input class="form-control" name="name" value="${getDiscussUser.name}"></p>
+                                <p>性别：
+                                    <select name="sex" class="form-control">
+                                        <c:if test="${getDiscussUser.sex=='男'}">
+                                            <option value="男" selected>男</option>
+                                            <option value="女">女</option>
+                                        </c:if>
+                                        <c:if test="${getDiscussUser.sex=='女'}">
+                                            <option value="男">男</option>
+                                            <option value="女" selected>女</option>
+                                        </c:if>
+                                    </select>
+                                </p>
+                                <p>密码：
+                                    <input class="form-control" name="password">
+                                </p>
+                                <p><input class="btn btn-transparent" type="submit" onsubmit="return submitChange()"
+                                          value="修改"></p>
+                            </div>
+                        </form>
                     </div>
 
                     <c:if test="${flag==1}">

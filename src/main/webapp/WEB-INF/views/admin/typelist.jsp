@@ -77,13 +77,23 @@ End Fixed Navigation
                                         href="/demand/queryByTypeId/${d.id}">查看订单</a>
                                 </span>
                                     <span class="post-tags"><i class="fa fa-arrow-circle-left"></i><a
-                                            href="/demandType/deleteDemandType/${d.id}">删除</a>
+                                            href="/demandType/deleteDemandType/${d.id}"
+                                            onclick="return deleteType(${d.demandNum})">删除</a>
                                 </span>
                                 </shiro:hasRole>
                             </div>
                         </article>
                     </c:forEach>
-
+                    <script>
+                        function deleteType(num) {
+                            if (num > 0) {
+                                alert("该类型下还有订单，无法进行删除操作！")
+                                return false;
+                            } else {
+                                return true;
+                            }
+                        }
+                    </script>
                     <!-- End Single Post -->
 
                 </div>

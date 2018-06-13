@@ -234,4 +234,35 @@ public class UserController {
         userRolesService.saveOrUpdate(roles);
         return "redirect:/discuss/getDiscussListByGetUserId/" + userId;
     }
+
+    /**
+     * 修改个人信息
+     *
+     * @param user    更改信息
+     * @param request 更新session
+     * @return 重定向至信息页面
+     */
+    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+    public String updateUser(User user, HttpServletRequest request) {
+        User u = userService.get(user.getId());
+        u.setName(user.getName());
+        if ("".equals(user.getPassword())) {
+            u.setPassword(u.getPassword());
+        } else {
+            u.setPassword(user.getPassword());
+        }
+        u.setSex(user.getSex());
+        userService.saveOrUpdate(u);
+        //修改成功自动进行登陆操作
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(u.getNum(), u.getPassword());
+        try {
+            subject.login(token);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute("userSession", u);
+        return "redirect:/discuss/getDiscussListByGetUserId/" + u.getId();
+    }
 }
