@@ -6,7 +6,7 @@
     <!-- Single Widget -->
     <aside class="widget wow fadeInUp" data-wow-duration="1000ms">
         <div class="widget-title">
-            <h3>Search</h3>
+            <h3>搜索</h3>
         </div>
         <div class="widget-content">
             <form action="/demand/searchByInfo" id="search-form" method="get" role="search">
@@ -95,135 +95,6 @@
             <c:forEach var="type" items="${typeList}">
                 <a class="tag" href="/demand/queryByTypeId/${type.id}">${type.name}</a>
             </c:forEach>
-        </div>
-    </aside>
-    <!-- End Single Widget -->
-
-    <!-- Single Widget -->
-    <aside class="widget wow fadeInDown">
-        <div class="widget-title">
-            <h3>Text Widget</h3>
-        </div>
-        <div class="widget-content">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus ducimus in dolorum
-                accusantium voluptate nostrum, excepturi dolores voluptatem vel rerum at, recusandae
-                inventore nobis ex eveniet sunt eligendi, qui provident.</p>
-        </div>
-    </aside>
-    <!-- End Single Widget -->
-
-    <!-- Single Widget -->
-    <aside class="widget wow fadeInDown">
-        <div class="widget-title">
-            <h3>Tab Widget</h3>
-        </div>
-
-        <div class="widget-content">
-            <!-- tab nav -->
-            <ul class="tab-post-nav clearfix">
-                <li class="active"><a href="#popular" data-toggle="tab">Popular Post</a></li>
-                <li><a href="#recent" data-toggle="tab">Recent Post</a></li>
-                <li><a href="#most-viewed" data-toggle="tab">Most Viewed</a></li>
-            </ul>
-            <!-- /tab nav -->
-
-            <!-- tab content -->
-            <div class="tab-content">
-                <article class="tab-pane active tab-post" id="popular">
-                    <div class="clearfix">
-                        <div class="tab-thumb">
-                            <img src="img/blog/3D-beach-art.jpg" class="img-responsive"
-                                 alt="3D Beach Art | Meghna">
-                        </div>
-                        <div class="tab-excerpt">
-                            <h4><a href="single.html">Post Title Demo</a></h4>
-                            <span>November 15 2017</span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore,
-                                laboriosam molestiae aliquam rem enim earum eos suscipit! Dolore, molestiae,
-                                quidem quo quam deleniti ullam dicta. Incidunt, quaerat est deserunt
-                                voluptatum.</p>
-                        </div>
-                    </div>
-                    <div class="clearfix">
-                        <div class="tab-thumb">
-                            <img src="img/blog/amazing-caves-coverimage.jpg" class="img-responsive"
-                                 alt="amazing-caves-coverimage | Meghna">
-                        </div>
-                        <div class="tab-excerpt">
-                            <h4><a href="single.html">Post Title Demo</a></h4>
-                            <span>November 15 2017</span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore,
-                                laboriosam molestiae aliquam rem enim earum eos suscipit! Dolore, molestiae,
-                                quidem quo quam deleniti ullam dicta. Incidunt, quaerat est deserunt
-                                voluptatum.</p>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="tab-pane tab-post" id="recent">
-                    <div class="clearfix">
-                        <div class="tab-thumb">
-                            <img src="img/blog/amazing-caves-coverimage.jpg" class="img-responsive"
-                                 alt="amazing-caves-coverimage | Meghna">
-                        </div>
-                        <div class="tab-excerpt">
-                            <h4><a href="single.html">Post Title Demo</a></h4>
-                            <span>November 15 2017</span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore,
-                                laboriosam molestiae aliquam rem enim earum eos suscipit! Dolore, molestiae,
-                                quidem quo quam deleniti ullam dicta. Incidunt, quaerat est deserunt
-                                voluptatum.</p>
-                        </div>
-                    </div>
-                    <div class="clearfix">
-                        <div class="tab-thumb">
-                            <img src="img/blog/3D-beach-art.jpg" class="img-responsive"
-                                 alt="3D Beach Art | Meghna">
-                        </div>
-                        <div class="tab-excerpt">
-                            <h4><a href="single.html">Post Title Demo</a></h4>
-                            <span>November 15 2017</span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore,
-                                laboriosam molestiae aliquam rem enim earum eos suscipit! Dolore, molestiae,
-                                quidem quo quam deleniti ullam dicta. Incidunt, quaerat est deserunt
-                                voluptatum.</p>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="tab-pane tab-post" id="most-viewed">
-                    <div class="clearfix">
-                        <div class="tab-thumb">
-                            <img src="img/blog/bicycle.jpg" class="img-responsive" alt="bicycle | Meghna">
-                        </div>
-                        <div class="tab-excerpt">
-                            <h4><a href="single.html">Post Title Demo</a></h4>
-                            <span>November 15 2017</span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore,
-                                laboriosam molestiae aliquam rem enim earum eos suscipit! Dolore, molestiae,
-                                quidem quo quam deleniti ullam dicta. Incidunt, quaerat est deserunt
-                                voluptatum.</p>
-                        </div>
-                    </div>
-                    <div class="clearfix">
-                        <div class="tab-thumb">
-                            <img src="img/blog/3D-beach-art.jpg" class="img-responsive"
-                                 alt="3D Beach Art | Meghna">
-                        </div>
-                        <div class="tab-excerpt">
-                            <h4><a href="single.html">Post Title Demo</a></h4>
-                            <span>November 15 2017</span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore,
-                                laboriosam molestiae aliquam rem enim earum eos suscipit! Dolore, molestiae,
-                                quidem quo quam deleniti ullam dicta. Incidunt, quaerat est deserunt
-                                voluptatum.</p>
-                        </div>
-                    </div>
-                </article>
-
-            </div>
-            <!-- /tab content -->
-
         </div>
     </aside>
     <!-- End Single Widget -->

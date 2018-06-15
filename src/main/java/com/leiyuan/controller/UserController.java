@@ -73,6 +73,28 @@ public class UserController {
         return "redirect:/user/toIndex";
     }
 
+    /**
+     * 通过验证码进行登陆
+     *
+     * @param user    包含手机号
+     * @param request 更新session
+     * @return 重定向至主页
+     */
+    @RequestMapping(value = "/loginPhone", method = RequestMethod.POST)
+    public String loginPhone(User user, HttpServletRequest request) {
+        User u = userService.getByPhone(user.getPhone());
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(u.getNum(), u.getPassword());
+        try {
+            subject.login(token);
+        } catch (Exception e) {
+            return "/user/login";
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute("userSession", u);
+        return "redirect:/user/toIndex";
+    }
+
     @RequestMapping("/logOut")
     public String logOut() {
         Subject subject = SecurityUtils.getSubject();
@@ -190,6 +212,28 @@ public class UserController {
             try {
                 code = SmsDemo.sendSms(phone);
                 session.setAttribute("code", code);
+            } catch (ClientException e) {
+                e.printStackTrace();
+            }
+            return code;
+        }
+    }
+
+    /**
+     * 注册发送验证码
+     *
+     * @param phone 手机号
+     */
+    @ResponseBody
+    @RequestMapping(value = "/loginByPhone/{phone}", method = RequestMethod.POST)
+    public String loginByPhone(@PathVariable("phone") String phone, HttpServletRequest request) {
+        User u = userService.getByPhone(phone);
+        if (u == null) {
+            return "0";
+        } else {
+            String code = null;
+            try {
+                code = SmsDemo.sendSms(phone);
             } catch (ClientException e) {
                 e.printStackTrace();
             }

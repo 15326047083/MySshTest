@@ -107,11 +107,13 @@ Start Preloader
 
                     </div>
                     <div class="author-about clearfix" style="display: none;" id="change">
-                        <form action="" method="post">
+                        <form action="/user/updateUser" method="post">
                             <h4>修改信息</h4>
                             <div class="author-bio">
                                 <input type="hidden" name="id" value="${getDiscussUser.id}">
-                                <p>姓名：<input class="form-control" name="name" value="${getDiscussUser.name}"></p>
+                                <p>姓名：
+                                    <input class="form-control" name="name" value="${getDiscussUser.name}" required>
+                                </p>
                                 <p>性别：
                                     <select name="sex" class="form-control">
                                         <c:if test="${getDiscussUser.sex=='男'}">
@@ -125,10 +127,11 @@ Start Preloader
                                     </select>
                                 </p>
                                 <p>密码：
-                                    <input class="form-control" name="password">
+                                    <input class="form-control" name="password" type="password">
                                 </p>
-                                <p><input class="btn btn-transparent" type="submit" onsubmit="return submitChange()"
-                                          value="修改"></p>
+                                <p>
+                                    <input class="btn btn-transparent" type="submit" value="修改">
+                                </p>
                             </div>
                         </form>
                     </div>
